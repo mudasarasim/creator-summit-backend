@@ -6,7 +6,7 @@
     <title>XpertOne Creator Summit</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -96,6 +96,7 @@
         </div>
       </div>
     </header>
+    <!-- header-end -->
 <script>
   function initializeCountdown(clockId, targetDateStr) {
     const countdownElement = document.getElementById(clockId);
@@ -153,22 +154,15 @@
     <main>
       <!-- slider-area -->
       <section
-        id="parallax"
-        class="slider-area slider-bg second-slider-bg slider-bg2 d-flex align-items-center justify-content-center fix"
-        style="background-image: url(img/home_2_slider_img.jpg)"
+        id="slider-background"
+        style="
+          background-image: url('img/image1.jpg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          transition: background-image 1s ease-in-out;
+        "
       >
-        <div class="slider-shape ss-one layer" data-depth="0.10">
-          <img src="img/doddle_6.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-two layer" data-depth="0.30">
-          <img src="img/doddle_8.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-three layer" data-depth="0.40">
-          <img src="img/doddle_9.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-four layer" data-depth="0.60">
-          <img src="img/doddle_7.png" alt="shape" />
-        </div>
         <div class="slider-active">
           <div class="single-slider">
             <div class="container">
@@ -182,18 +176,14 @@
                     >
                       DUBAI CREATORS SUMMIT 2025
                     </h2>
-                    <h4
-                      class="dubai-creator-subtitle"
-                      data-animation="fadeInUp animated"
-                      data-delay=".4s"
-                    >
-                      "Where Creators Meet Brands and Business"
+                    <h4 class="dubai-creator-subtitle">
+                      "Where Creators Meet <span id="flipping-text"></span>"
                     </h4>
                     <!-- <ul data-animation="fadeInUp animated" data-delay=".2s">
-											<li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
-											<li><i class="far fa-clock"></i>  5 - 7 June 2019, </li>
-											<li><i class="fal fa-building"></i>  Edition </li>
-										</ul> -->
+                      <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
+                      <li><i class="far fa-clock"></i> 5 - 7 June 2019, </li>
+                      <li><i class="fal fa-building"></i> Edition</li>
+                    </ul> -->
                   </div>
                 </div>
               </div>
@@ -201,7 +191,6 @@
           </div>
         </div>
       </section>
-      <!-- slider-area-end -->
 
       <!-- about-area -->
       <section id="about" class="about-area about-p pt-120 pb-120 p-relative">
@@ -335,26 +324,16 @@
                 start in
               </div>
               <div class="ppb_header_content">
-                <div id="clock1573568515278500141" data-date="2025-09-19"></div>
+                <!-- change date for the countdown -->
+                <div id="clock1573568515278500141" data-date="2025-07-30"></div> 
               </div>
             </div>
           </div>
-          <div id="clockdiv" data-date="2025-07-25"></div>
-        </div>
-      </div>
-      <div class="standard_wrapper">
-        <div class="page_content_wrapper">
-          <div class="inner">
-            <div style="margin: auto; width: 100%">
-              <div class="ppb_header_content">
-                <div id="clock1573568515278500141" data-date="2025-09-12"></div>
-              </div>
-            </div>
-          </div>
+          <div id="clockdiv" data-date="2025-07-30"></div>
         </div>
       </div>
 
-      <!-- team-area -->
+           <!-- team-area -->
       <section id="team" class="team-area p-relative pt-120 pb-120 fix">
         <div class="section-t team-t paroller"
           data-paroller-factor="0.15"
@@ -1443,28 +1422,42 @@
     <!-- footer-end -->
 
     <!-- JS here -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/plugins/jquery.countdown.js"></script>
-    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-    <script src="js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/one-page-nav-min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <script src="js/ajax-form.js"></script>
-    <script src="js/paroller.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/parallax.min.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
-    <script src="js/jquery.counterup.min.js"></script>
-    <script src="js/jquery.scrollUp.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/element-in-view.js"></script>
-    <script src="js/isotope.pkgd.min.js"></script>
-    <script src="js/imagesloaded.pkgd.min.js"></script>
-    <script src="js/main.js"></script>
+     <script>
+  const bgImages = [
+    "img/image1.jpg",
+    "img/image2.avif",
+    "img/image3.jpg",
+    "img/image4.avif"
+  ];
+
+  let bgIndex = 0;
+  const sliderBackground = document.getElementById("slider-background");
+
+  setInterval(() => {
+    bgIndex = (bgIndex + 1) % bgImages.length;
+    sliderBackground.style.backgroundImage = `url('${bgImages[bgIndex]}')`;
+  }, 2500); // Change every 4 seconds
+</script>
+
     <script>
+      const words = [ "Growth","Brands","Business", "Opportunities", "Partnerships",];
+      let index = 0;
+      const flipElement = document.getElementById("flipping-text");
+        
+      function flipWords() {
+        // Trigger animation reset
+        flipElement.classList.remove("flip");
+        void flipElement.offsetWidth; // Reflow trick
+        flipElement.textContent = words[index];
+        flipElement.classList.add("flip");
+        index = (index + 1) % words.length;
+      }
+    
+      flipWords();
+      setInterval(flipWords, 2500);
+    </script>
+
+     <script>
   document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/speakers')
       .then(res => res.json())
@@ -1512,10 +1505,10 @@
           container.innerHTML += html;
         });
       })
-      .catch(error => {
-        console.error('Fetch error:', error);
-        alert('Unable to load speakers.');
-      });
+      // .catch(error => {
+      //   console.error('Fetch error:', error);
+      //   alert('Unable to load speakers.');
+      // });
 
     // Hide modals initially
     document.getElementById('voteModal').style.display = 'none';
@@ -1567,5 +1560,26 @@
   }
 </script>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/plugins/jquery.countdown.js"></script>
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/one-page-nav-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/paroller.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/element-in-view.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/main.js"></script>
   </body>
 </html>

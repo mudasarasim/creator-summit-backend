@@ -91,7 +91,7 @@
         </tr>
       `;
 
-      fetch('http://localhost:3000/api/votes')
+      fetch('http://13.201.21.78:3000/api/votes')
         .then(response => {
           if (!response.ok) throw new Error("Network response was not ok");
           return response.json();

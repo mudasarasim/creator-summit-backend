@@ -1,5 +1,5 @@
-<!-- public/edit-angel.html
-<!DOCTYPE html>
+<!-- public/edit-angel.html -->
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -57,7 +57,7 @@
     document.getElementById('angelId').value = angelId;
 
     // Fetch existing data
-    fetch(`http://localhost:3000/api/admin/angels/${angelId}`)
+    fetch(`http://13.201.21.78:3000/api/admin/angels/${angelId}`)
       .then(res => res.json())
       .then(data => {
         document.getElementById('name').value = data.name;
@@ -85,7 +85,7 @@
         description: document.getElementById('description').value,
       };
 
-      fetch(`http://localhost:3000/api/admin/angels/${angelId}`, {
+      fetch(`http://13.201.21.78:3000/api/admin/angels/${angelId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

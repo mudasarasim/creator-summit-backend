@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xpertone Creator Summit</title>
-
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>XpertOne Creator Summit</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png" />
+    <!-- Place favicon.ico in the root directory -->  
+    <!-- CSS here -->
     <link
       href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i&display=swap"
       rel="stylesheet"
@@ -22,7 +26,7 @@
     <link rel="stylesheet" href="css/default.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
-</head>
+  </head>
 <body>
 
     <header
@@ -51,8 +55,8 @@
                 <div class="main-menu text-right text-xl-center">
                   <nav id="mobile-menu">
                     <ul>
-                      <li class="active has-sub">
-                        <a href="#home" class="menu-link">Home</a>
+                      <li class="has-sub">
+                        <a href="index.html" class="menu-link">Home</a>
                       </li>
                       <!-- <li class="has-sub">
                         <a href="about.html" class="menu-link">About</a>
@@ -95,42 +99,38 @@
 
     <!-- Schedule -->
 
-    <section
-        id="parallax"
-        class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix"
-        style="background-image: url(img/innerpage_bg_img.jpg)"
-      >
-        <div class="slider-shape ss-one layer" data-depth="0.10">
-          <img src="img/doddle_6.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-three layer" data-depth="0.40">
-          <img src="img/doddle_9.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-four layer" data-depth="0.60">
-          <img src="img/doddle_7.png" alt="shape" />
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
-              <div class="breadcrumb-wrap text-center">
-                <div class="breadcrumb-title mb-30">
-                  <h2>Schedule</h2>
-                </div>
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      Schedule
-                    </li>
-                  </ol>
-                </nav>
-              </div>
+    <section>
+  <div class="breadcrumb-section" style="position: relative; background-image: url('img/schedule.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; display: flex; align-items: center; justify-content: center;">
+    
+    <!-- Overlay -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);"></div>
+
+    <!-- Content -->
+    <div class="container" style="position: relative; z-index: 1;">
+      <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8 text-center">
+          <div class="breadcrumb-wrap">
+            <div class="breadcrumb-title mb-30">
+              <h2 style="color: white;">Schedule</h2>
             </div>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-center" style="background: transparent;">
+                <li class="breadcrumb-item">
+                  <a href="index.html" style="color: #fff;">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" style="color: #ddd;">
+                  Schedule
+                </li>
+              </ol>
+            </nav>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+  </div>
+</section>
+
     <section class="schedule-section my-5">
   <div class="container">
     <!-- <h2 class="section-title text-center align-items-center">Conference Schedule</h2> -->

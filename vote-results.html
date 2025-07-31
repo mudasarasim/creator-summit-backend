@@ -51,69 +51,60 @@
   </div>
 
   <script>
-    fetch('http://localhost:3000/api/vote-results')
-      .then(res => {
-        if (res.status === 304) {
-          console.log("✅ Using cached data. No new results.");
-          // You could use cached data here if you're storing it
-          document.getElementById('resultsBody').innerHTML = `
-            <tr>
-              <td colspan="3" class="text-center text-muted">No new vote updates.</td>
-            </tr>
-          `;
-          return null;
-        }
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-        return res.json();
-      })
-      .then(data => {
-        if (!data) return;
+  fetch('http://13.201.21.78:3000/api/vote-results')
+    .then(res => res.json())
+    .then(data => {
+      const tbody = document.getElementById('resultsBody');
+      tbody.innerHTML = '';
 
-        const tbody = document.getElementById('resultsBody');
-        tbody.innerHTML = '';
-
-        if (data.length === 0) {
-          tbody.innerHTML = `
-            <tr>
-              <td colspan="3" class="text-center text-muted">No votes yet.</td>
-            </tr>
-          `;
-          return;
-        }
-
-        data.forEach((item, index) => {
-          const row = document.createElement('tr');
-          row.classList.add('fade-in');
-
-          let rankBadge = '', rowClass = '';
-          if (index === 0) {
-            rankBadge = `<span class="badge bg-warning text-dark">🥇</span>`;
-            rowClass = 'table-success';
-          } else if (index === 1) {
-            rankBadge = `<span class="badge bg-secondary">🥈</span>`;
-            rowClass = 'table-info';
-          } else if (index === 2) {
-            rankBadge = `<span class="badge bg-dark">🥉</span>`;
-            rowClass = 'table-light';
-          }
-
-          row.classList.add(rowClass);
-          row.innerHTML = `
-            <td>${index + 1} ${rankBadge}</td>
-            <td>${item.speaker}</td>
-            <td>${item.total_votes}</td>
-          `;
-          tbody.appendChild(row);
-        });
-      })
-      .catch(err => {
-        console.error("Error:", err);
-        document.getElementById('resultsBody').innerHTML = `
+      if (data.length === 0) {
+        tbody.innerHTML = `
           <tr>
-            <td colspan="3" class="text-center text-danger">⚠️ Failed to load results</td>
+            <td colspan="3" class="text-center text-muted">No votes yet.</td>
           </tr>
         `;
+        return;
+      }
+
+      data.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.classList.add('fade-in');
+
+        // Badge + Highlight Logic
+        let rankBadge = '';
+        let rowClass = '';
+        if (index === 0) {
+          rankBadge = `<span class="badge bg-warning text-dark">🥇</span>`;
+          rowClass = 'table-success';
+        } else if (index === 1) {
+          rankBadge = `<span class="badge bg-secondary">🥈</span>`;
+          rowClass = 'table-info';
+        } else if (index === 2) {
+          rankBadge = `<span class="badge bg-dark">🥉</span>`;
+          rowClass = 'table-light';
+        }
+
+        if (rowClass) {
+          row.classList.add(rowClass);
+        }
+
+        row.innerHTML = `
+          <td>${index + 1} ${rankBadge}</td>
+          <td>${item.speaker}</td>
+          <td>${item.total_votes}</td>
+        `;
+        tbody.appendChild(row);
       });
-  </script>
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      document.getElementById('resultsBody').innerHTML = `
+        <tr>
+          <td colspan="3" class="text-center text-danger">⚠️ Failed to load results</td>
+        </tr>
+      `;
+    });
+</script>
+
 </body>
 </html>
