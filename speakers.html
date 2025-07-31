@@ -6,9 +6,7 @@
     <title>XpertOne Creator Summit</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -30,6 +28,27 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/responsive.css" />
   </head>
+  <script>
+  function openSpeakerModal(name, role, description, image) {
+    const modalContent = `
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="${image}" alt="${name}" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" />
+        </div>
+        <div class="col-md-8">
+          <h4 style="color:#002b7f;">${name}</h4>
+          <p style="color: #777;"><strong>${role}</strong></p>
+          <p>${description || 'No description available.'}</p>
+        </div>
+      </div>
+    `;
+    document.getElementById('modalContent').innerHTML = modalContent;
+    var myModal = new bootstrap.Modal(document.getElementById('speakerModal'));
+    myModal.show();
+  }
+</script>
+
+<!-- JS RENDERING SPEAKERS -->
 <script>
   function openSpeakerModal(name, role, description, image) {
     const modalContent = `
@@ -72,8 +91,7 @@
                     src="${imageUrl}" 
                     alt="${speaker.name}" 
                     onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')"
-                    style="width: 120px; height: 120px; object-fit: cover; background: #eee; cursor: pointer;"
-
+                    style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; background: #eee; cursor: pointer;"
                   />
                 </div>
                 <h5 style="font-weight: 700; color: #002b7f;">${speaker.name}</h5>
@@ -143,8 +161,6 @@
       });
   }
 </script>
-
-
   <body>
     <!-- header -->
     <header
@@ -217,44 +233,38 @@
     <!-- main-area -->
     <main>
       <!-- breadcrumb-area -->
-      <section
-        id="parallax"
-        class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix"
-        style="background-image: url(img/innerpage_bg_img.jpg)"
-      >
-        <div class="slider-shape ss-one layer" data-depth="0.10">
-          <img src="img/doddle_6.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-three layer" data-depth="0.40">
-          <img src="img/doddle_9.png" alt="shape" />
-        </div>
-        <div class="slider-shape ss-four layer" data-depth="0.60">
-          <img src="img/doddle_7.png" alt="shape" />
-        </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
-              <div class="breadcrumb-wrap text-center">
-                <div class="breadcrumb-title mb-30">
-                  <h2>Our Angels</h2>
-                </div>
-                <nav aria-label="breadcrumb">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                      <a href="index.html">Home</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      Angels
-                    </li>
-                  </ol>
-                </nav>
-              </div>
+       <section>
+  <div class="breadcrumb-section" style="position: relative; background-image: url('img/angels.webp'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 60vh; display: flex; align-items: center; justify-content: center;">
+    
+    <!-- Overlay -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);"></div>
+
+    <!-- Content -->
+    <div class="container" style="position: relative; z-index: 1;">
+      <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8 text-center">
+          <div class="breadcrumb-wrap">
+            <div class="breadcrumb-title mb-30">
+              <h2 style="color: white;">Our Angels</h2>
             </div>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb justify-content-center" style="background: transparent;">
+                <li class="breadcrumb-item">
+                  <a href="index.html" style="color: #fff;">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page" style="color: #ddd;">
+                  Our Angels
+                </li>
+              </ol>
+            </nav>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <!-- team-area -->
+  </div>
+</section>
+<!-- team-area -->
       <section id="team" class="team-area p-relative pt-120 pb-120 fix">
         <div
           class="section-t team-t paroller"
