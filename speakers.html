@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>XpertOne Creator Summit</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="css/dripicons.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+<script>
+  function openSpeakerModal(name, role, description, image) {
+    const modalContent = `
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img src="${image}" alt="${name}" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" />
+        </div>
+        <div class="col-md-8">
+          <h4 style="color:#002b7f;">${name}</h4>
+          <p style="color: #777;"><strong>${role}</strong></p>
+          <p>${description || 'No description available.'}</p>
+        </div>
+      </div>
+    `;
+    document.getElementById('modalContent').innerHTML = modalContent;
+    var myModal = new bootstrap.Modal(document.getElementById('speakerModal'));
+    myModal.show();
+  }
+</script>
+
+<!-- JS RENDERING SPEAKERS -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('/api/speakers')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('speakers-container');
+        data.forEach((speaker) => {
+          const imageUrl = speaker.youtube_image && speaker.youtube_image.startsWith('/uploads/')
+            ? speaker.youtube_image
+            : speaker.youtube_image
+              ? `/uploads/${speaker.youtube_image}`
+              : 'img/speaker_1.png';
+
+          const html = `
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card text-center p-4 border-0 shadow-sm">
+                <div class="mb-3">
+                  <img 
+                    src="${imageUrl}" 
+                    alt="${speaker.name}" 
+                    onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')"
+                    style="width: 120px; height: 120px; object-fit: cover; background: #eee; cursor: pointer;"
+
+                  />
+                </div>
+                <h5 style="font-weight: 700; color: #002b7f;">${speaker.name}</h5>
+                <p style="color: #777; margin-top: 5px;">${speaker.niche || 'Speaker'}</p>
+                <button class="btn btn-sm btn-primary mt-2" onclick="openVoteModal('${speaker.name}')">Vote</button>
+                <div class="d-flex justify-content-center mt-3">
+                  ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank" class="mx-1"><i class="fab fa-instagram"></i></a>` : ''}
+                  ${speaker.youtube ? `<a href="${speaker.youtube}" target="_blank" class="mx-1"><i class="fab fa-youtube"></i></a>` : ''}
+                  ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank" class="mx-1"><i class="fab fa-tiktok"></i></a>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+          container.innerHTML += html;
+        });
+      });
+
+    // Ensure modals are hidden on load
+    document.getElementById('voteModal').style.display = 'none';
+    document.getElementById('successModal').style.display = 'none';
+  });
+
+  function openVoteModal(speakerName) {
+    document.getElementById('voteSpeakerName').innerText = speakerName;
+    document.getElementById('voteModal').style.display = 'flex';
+  }
+
+  function closeVoteModal() {
+    document.getElementById('voteModal').style.display = 'none';
+    document.getElementById('voteSpeakerName').innerText = '';
+    document.getElementById('voterName').value = '';
+    document.getElementById('voterEmail').value = '';
+    document.getElementById('voterPhone').value = '';
+  }
+
+  function closeSuccessModal() {
+    document.getElementById('successModal').style.display = 'none';
+  }
+
+  function submitVote() {
+    const name = document.getElementById('voterName').value.trim();
+    const email = document.getElementById('voterEmail').value.trim();
+    const phone = document.getElementById('voterPhone').value.trim();
+    const speaker = document.getElementById('voteSpeakerName').innerText.trim();
+
+    if (!name || !email || !phone) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    fetch('/api/vote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, speaker })
+    })
+      .then(res => res.json())
+      .then(data => {
+        // Clear form and hide vote modal
+        closeVoteModal();
+
+        // Show success modal
+        document.getElementById('successModal').style.display = 'flex';
+      })
+      .catch(err => {
+        console.error('Failed to submit vote:', err);
+        alert('Something went wrong while submitting your vote.');
+      });
+  }
+</script>
+
+
+  <body>
+    <!-- header -->
+    <header
+      id="home"
+      class="header-area fixed-top"
+      style="background-color: white; z-index: 999"
+    >
+      <div id="navbar" class="menu-area" style="background-color: white">
+        <div class="container">
+          <div class="second-menu">
+            <div class="row align-items-center">
+              <div class="col-xl-3 col-lg-3">
+                <div class="logo">
+                  <a href="index.html"
+                    ><img
+                      src="img/logo/logo.png"
+                      alt="logo"
+                      style="width: 200px; height: 70px"
+                  /></a>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-9">
+                <div class="responsive">
+                  <i class="icon dripicons-align-right"></i>
+                </div>
+                <div class="main-menu text-right text-xl-center">
+                  <nav id="mobile-menu">
+                    <ul>
+                      <li class="has-sub">
+                        <a href="index.html" class="menu-link">Home</a>
+                      </li>
+                      <!-- <li class="has-sub">
+                        <a href="about.html" class="menu-link">About</a>
+                      </li>
+                      <li class="has-sub">
+                        <a href="venue.html" class="menu-link">Venue</a>
+                      </li> -->
+                      <li class="has-sub">
+                        <a href="speakers.html" class="menu-link">Angels</a>
+                      </li>
+                      <li class="has-sub">
+                        <a href="schedule.html" class="menu-link">Schedule </a>
+                      </li>
+                      <li class="has-sub">
+                        <a href="contact.html" class="menu-link">Be Our Angel</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-xl-3 text-right d-none d-xl-block">
+                <div class="header-btn second-header-btn d-flex justify-content-end align-items-center">
+                  <!-- Exhibit & Sponsor Button -->
+                  <a href="exhibit.html" class="btn me-2" style="margin-right: 15px;">
+                    <i class="fas fa-handshake"></i> Exhibit & Sponsor
+                  </a>
+                
+                  <!-- Buy Ticket Button -->
+                  <a href="index.html#pricing" class="btn">
+                    <i class="far fa-ticket-alt"></i> Buy Ticket
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- header-end -->
+    <!-- main-area -->
+    <main>
+      <!-- breadcrumb-area -->
+      <section
+        id="parallax"
+        class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix"
+        style="background-image: url(img/innerpage_bg_img.jpg)"
+      >
+        <div class="slider-shape ss-one layer" data-depth="0.10">
+          <img src="img/doddle_6.png" alt="shape" />
+        </div>
+        <div class="slider-shape ss-three layer" data-depth="0.40">
+          <img src="img/doddle_9.png" alt="shape" />
+        </div>
+        <div class="slider-shape ss-four layer" data-depth="0.60">
+          <img src="img/doddle_7.png" alt="shape" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+              <div class="breadcrumb-wrap text-center">
+                <div class="breadcrumb-title mb-30">
+                  <h2>Our Angels</h2>
+                </div>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="index.html">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Angels
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- team-area -->
+      <section id="team" class="team-area p-relative pt-120 pb-120 fix">
+        <div
+          class="section-t team-t paroller"
+          data-paroller-factor="0.15"
+          data-paroller-factor-lg="0.15"
+          data-paroller-factor-md="0.15"
+          data-paroller-factor-sm="0.15"
+          data-paroller-type="foreground"
+          data-paroller-direction="horizontal"
+        >
+          <h2>Angels</h2>
+        </div>
+        <div class="circal1 item-zoom-inout"></div>
+        <div class="circal2 item-zoom-inout"></div>
+        <div class="circal3 item-zoom-inout"></div>
+        <div class="circal4 item-zoom-inout"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+              <div class="section-title text-center mb-80">
+                <!-- <span
+                  class="wow fadeInUp animated"
+                  data-animation="fadeInUp animated"
+                  data-delay=".2s"
+                  >Angels</span
+                > -->
+                <h2
+                  class="wow fadeInUp animated"
+                  data-animation="fadeInUp animated"
+                  data-delay=".4s"
+                >
+                  Angels
+                </h2>
+              </div>
+            </div>
+          </div>
+            <div class="row" id="speakers-container"></div>
+          <div class="row">
+            <div
+              class="col-lg-3 col-md-6 wow fadeInDown animated"
+              data-animation="fadeInUp animated"
+              data-delay=".2s"
+            >
+
+
+
+                <div class="team-thumb">
+                  <img src="img/speaker_1.png" alt="img" />
+                </div>
+                <div class="team-info">
+
+</div>
+      <!-- team-area-end -->
+
+      <!-- slider-area -->
+      <!-- <section
+        id="parallax"
+        class="slider-area slider-bg second-slider-bg slider-bg3 slider-bg4 d-flex align-items-center justify-content-center fix"
+        style="background-image: url(img/counter_form_bg.jpg)"
+      >
+        <div class="slider-active">
+          <div class="single-slider">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="slider-content second-slider-content">
+                    <h2 data-animation="fadeInUp animated" data-delay=".4s">
+                      Digital World Conference
+                    </h2>
+                    <div
+                      class="conterdown wow fadeInDown animated"
+                      data-animation="fadeInDown animated"
+                      data-delay=".2s"
+                      countdown
+                      data-date="Jan 1 2020 00:00:00"
+                    >
+                      <div class="timer">
+                        <div class="timer-outer bdr1">
+                          <span class="days" data-days>0</span>
+                          <div class="smalltext">Days</div>
+                          <div class="value-bar"></div>
+                        </div>
+                        <div class="timer-outer bdr2">
+                          <span class="hours" data-hours>0</span>
+                          <div class="smalltext">Hours</div>
+                        </div>
+                        <div class="timer-outer bdr3">
+                          <span class="minutes" data-minutes>0</span>
+                          <div class="smalltext">Minutes</div>
+                        </div>
+                        <div class="timer-outer bdr4">
+                          <span class="seconds" data-seconds>0</span>
+                          <div class="smalltext">Seconds</div>
+                        </div>
+                        <p id="time-up"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div
+                    class="booking-form mb-50 mt-50 align-items-center justify-content-center wow fadeInLeft"
+                    data-animation="fadeInLeft"
+                    data-delay=".2s"
+                  >
+                    <h2>Register Right Now!</h2>
+                    <form>
+                      <div class="form-outer">
+                        <div class="icon"><i class="fal fa-user"></i></div>
+                        <input type="text" placeholder="Enter your name" />
+                      </div>
+                      <div class="form-outer">
+                        <div class="icon"><i class="fal fa-envelope"></i></div>
+                        <input type="email" placeholder="Enter your email" />
+                      </div>
+                      <div class="form-outer">
+                        <div class="icon"><i class="far fa-phone"></i></div>
+                        <input type="phone" placeholder="Enter your phone" />
+                      </div>
+                      <div class="form-outer">
+                        <div class="icon"><i class="fal fa-list"></i></div>
+                        <select id="select">
+                          <option selected="selected">
+                            <span class="grey_color">Select your seat</span>
+                          </option>
+                          <option>one</option>
+                          <option>two</option>
+                          <option>three</option>
+                          <option>four</option>
+                          <option>five</option>
+                        </select>
+                      </div>
+                      <div class="text-center">
+                        <a href="#" class="btn"
+                          ><i class="far fa-ticket-alt"></i> Buy Ticket</a
+                        >
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> -->
+      <!-- slider-area-end -->
+      <!-- blog-area -->
+      <!-- <section id="blog" class="blog-area p-relative fix pt-100 pb-80">
+			 
+                <div class="container">
+                  <div class="section-t team-t paroller" data-paroller-factor="0.15" data-paroller-factor-lg="0.15" data-paroller-factor-md="0.15" data-paroller-factor-sm="0.15" data-paroller-type="foreground" data-paroller-direction="horizontal"><h2>News</h2></div>
+			 <div class="row justify-content-center">
+                        <div class="col-xl-8 col-lg-8">
+                            <div class="section-title mb-80">
+                                <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">feeds</span>
+                                <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">News Feeds</h2>
+                            </div>
+                        </div>
+						<div class="col-xl-4 col-lg-4 text-right">
+                           
+                        </div>
+                    </div>
+                    <div class="row blog-active2 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-post mb-30">
+                                <div class="blog-thumb">
+                                    <a href="blog-details.html"><img src="img/blog_img_1.jpg" alt="img"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="b-meta mb-20">
+                                    <ul>
+										<li><i class="far fa-comments"></i>35 Comments</li>
+                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
+                                    </ul>
+                                    </div>
+                                    <h4><a href="blog-details.html">The issue with any content strategy is time.</a></h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-post active mb-30">
+                                <div class="blog-thumb">
+                                    <a href="blog-details.html"><img src="img/blog_img_2.jpg" alt="img"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="b-meta mb-20">
+                                    <ul>
+										<li><i class="far fa-comments"></i>35 Comments</li>
+                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
+                                    </ul>
+                                    </div>
+                                    <h4><a href="blog-details.html">Time to sit down and think about what kind of content</a></h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-post mb-30">
+                                <div class="blog-thumb">
+                                    <a href="blog-details.html"><img src="img/blog_img_3.jpg" alt="img"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="b-meta mb-20">
+                                      <ul>
+										<li><i class="far fa-comments"></i>35 Comments</li>
+                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
+                                    </ul>
+                                    </div>
+                                    <h4><a href="blog-details.html">Should be created, time to stop and write, or record.</a></h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+						<div class="col-lg-4 col-md-6">
+                            <div class="single-post mb-30">
+                                <div class="blog-thumb">
+                                    <a href="blog-details.html"><img src="img/blog_img_2.jpg" alt="img"></a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="b-meta mb-20">
+                                      <ul>
+                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
+                                        <li><i class="far fa-comments"></i>35 Comments</li>
+                                    </ul>
+                                    </div>
+                                    <h4><a href="blog-details.html">User Experience Psychology And Performance Smashing</a></h4>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
+                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> -->
+      <!-- blog-area-end -->
+    </main>
+    <!-- main-area-end -->
+    <!-- footer -->
+    <footer
+      class="footer-bg footer-p"
+      style="
+        background-image: url(img/footer_bg_img.jpg);
+        background-size: cover;
+      "
+    >
+      <div class="footer-top">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
+              <div class="footer-widget pt-120 mb-30">
+                <!-- <div class="logo mb-35">
+                                    <a href="#"><img src="img/footer_logo.png" alt="logo"></a>
+                                </div> -->
+                <div class="footer-text mb-20">
+                  <p>
+                    The biggest challenge in content strategy? Finding the time
+                    to plan, create, and connect. We make it easier for you to
+                    focus on what matters—building your audience and growing
+                    your brand.
+                  </p>
+                </div>
+                <div class="footer-social">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                  <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="copyright-wrap pb-120">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">						
+                            <div class="copyright-text text-center">
+								<div class="footer-link">
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Eventime</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="#">Tickets</a></li>
+                                        <li><a href="#">Venue</a></li>
+                                    </ul>
+                                </div>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+    </footer>
+    <!-- footer-end -->
+
+    <!-- JS here -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/one-page-nav-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/paroller.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/parallax.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/element-in-view.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Speakers Section -->
+<div class="container mt-5">
+  <div class="row" id="speakers-container"></div>
+</div>
+
+<!-- Vote Modal -->
+<div id="voteModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+  <div class="card p-4" style="width: 100%; max-width: 400px;">
+    <h5 class="mb-3 text-center">Vote for <span id="voteSpeakerName"></span></h5>
+    <input type="text" class="form-control mb-2" id="voterName" placeholder="Your Name" />
+    <input type="email" class="form-control mb-2" id="voterEmail" placeholder="Your Email" />
+    <input type="tel" class="form-control mb-3" id="voterPhone" placeholder="Your Phone" />
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-secondary" onclick="closeVoteModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="submitVote()">Vote Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div id="successModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+  <div class="card text-center p-4" style="max-width: 300px;">
+    <h5 class="mb-3 text-success">Vote Submitted! Thanks For Vote</h5>
+    <button class="btn btn-sm btn-success" onclick="closeSuccessModal()">OK</button>
+  </div>
+</div>
+
+</html>

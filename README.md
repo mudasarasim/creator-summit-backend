@@ -1,2 +1,1 @@
-# creator-summit-backend
-creator-summit-backend
+# Creator-Summit

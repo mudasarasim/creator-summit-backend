@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Angels</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      padding-top: 40px;
+    }
+
+    h2 {
+      font-weight: 600;
+    }
+
+    td.description-cell {
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    td.description-cell:hover {
+      white-space: normal;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+      z-index: 2;
+    }
+
+    td.link-cell {
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    td.link-cell a {
+      display: inline-block;
+      max-width: 100%;
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    td.link-cell a:hover {
+      text-decoration: underline;
+    }
+
+    .table-container {
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .btn-danger {
+      font-size: 0.85rem;
+    }
+
+    #loading-spinner {
+      display: none;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #loading-spinner .spinner-border {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="table-container">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>All Angel Submissions</h2>
+        <div>
+          <button onclick="location.href='dashboard.html'" class="btn btn-secondary btn-sm me-2">Back to Dashboard</button>
+          <button onclick="fetchAngels()" class="btn btn-outline-primary btn-sm">Refresh List</button>
+        </div>
+      </div>
+
+      <!-- Spinner -->
+      <div id="loading-spinner">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2">Loading...</p>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+          <thead class="table-dark">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Instagram</th>
+              <th>TikTok</th>
+              <th>YouTube</th>
+              <th>Followers</th>
+              <th>Niche</th>
+              <th>Description</th>
+              <th>Submitted</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="angel-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tableBody = document.getElementById('angel-table-body');
+    const spinner = document.getElementById('loading-spinner');
+
+    async function fetchAngels() {
+      try {
+        spinner.style.display = 'block';
+        tableBody.innerHTML = '';
+
+        // Simulate delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
+        const res = await fetch('http://localhost:3000/api/admin/angels', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          }
+        });
+        const data = await res.json();
+        spinner.style.display = 'none';
+
+        data.forEach((angel, i) => {
+          tableBody.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${angel.name}</td>
+              <td>${angel.email}</td>
+              <td>${angel.phone}</td>
+              <td class="link-cell"><a href="${angel.instagram}" target="_blank">${angel.instagram}</a></td>
+              <td class="link-cell"><a href="${angel.tiktok}" target="_blank">${angel.tiktok}</a></td>
+              <td class="link-cell"><a href="${angel.youtube || '#'}" target="_blank">${angel.youtube || ''}</a></td>
+              <td>${angel.followers}</td>
+              <td>${angel.niche}${angel.other_niche ? ` (${angel.other_niche})` : ''}</td>
+              <td class="description-cell">${angel.description}</td>
+              <td>${new Date(angel.created_at).toLocaleString()}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" onclick="deleteAngel('${angel.id}')">Delete</button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        spinner.style.display = 'none';
+        console.error("Error fetching angels:", err);
+        alert("Error loading data.");
+      }
+    }
+
+    function deleteAngel(id) {
+      if (confirm("Are you sure you want to delete this submission?")) {
+        fetch(`http://localhost:3000/api/admin/angels/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert("Deleted successfully");
+            fetchAngels(); // Refresh list
+          })
+          .catch(err => {
+            console.error("Delete error:", err);
+            alert("Error deleting record.");
+          });
+      }
+    }
+
+    // Load data initially
+    fetchAngels();
+  </script>
+</body>
+</html>
