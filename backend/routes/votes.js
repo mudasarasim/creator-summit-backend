@@ -10,16 +10,32 @@ router.post('/vote', (req, res) => {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const query = 'INSERT INTO votes (name, email, phone, speaker) VALUES (?, ?, ?, ?)';
-  db.query(query, [name, email, phone, speaker], (err, result) => {
+  // First check if the email already exists
+  const checkQuery = 'SELECT * FROM votes WHERE email = ?';
+  db.query(checkQuery, [email], (err, results) => {
     if (err) {
-      console.error('Error inserting vote:', err);
+      console.error('Error checking email:', err);
       return res.status(500).json({ message: 'Internal server error' });
     }
 
-    res.json({ message: 'Vote submitted successfully!' });
+    if (results.length > 0) {
+      // Email already voted
+      return res.status(400).json({ message: 'You have already voted with this email.' });
+    }
+
+    // Insert vote
+    const insertQuery = 'INSERT INTO votes (name, email, phone, speaker) VALUES (?, ?, ?, ?)';
+    db.query(insertQuery, [name, email, phone, speaker], (err, result) => {
+      if (err) {
+        console.error('Error inserting vote:', err);
+        return res.status(500).json({ message: 'Internal server error' });
+      }
+
+      res.json({ message: 'Vote submitted successfully!' });
+    });
   });
 });
+
 // GET /api/admin/votes
 router.get('/', (req, res) => {
   db.query('SELECT * FROM votes ORDER BY id DESC', (err, results) => {
