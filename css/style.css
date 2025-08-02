@@ -71,7 +71,7 @@
 }
 
 #navbar {
-  background: linear-gradient(to right, #e0f7ff, #002691);
+  background: linear-gradient(to right, #e0f7ff, #e0f7ff, #002691);
   width: 100%;
 }
 
@@ -85,14 +85,17 @@
   z-index: 999;
 }
 
+
+.menu-area .container{
+	background: linear-gradient(to right, #e0f7ff, #e0f7ff, #002691) !important;
+}
+
 /* Padding for content below the fixed navbar */
 body {
   padding-top: 100px;
 }
 
-nav ul{
-	margin-left: -50px !important;
-}
+
 
 .btn {
 	padding: 20px !important;

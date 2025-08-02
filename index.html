@@ -107,7 +107,7 @@
       const diff = targetDate - now;
 
       if (diff <= 0) {
-        countdownElement.innerHTML = "<b>Event Started!</b>";
+        countdownElement.innerHTML = "";
         return;
       }
 
@@ -369,7 +369,7 @@
           <!-- View More Button Centered -->
           <div class="row">
             <div class="col-12 text-center">
-              <a href="speakers.html" class="btn btn-primary view-more-btn">View More Speakers</a>
+              <a href="speakers.html" class="btn btn-primary view-more-btn">View More Angels</a>
             </div>
           </div>
         </div>
@@ -1484,7 +1484,7 @@
                     src="${imageUrl}" 
                     alt="${speaker.name}" 
                     onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')" 
-                    style="width: 100%; height: 250px; object-fit: cover; cursor: pointer;"
+                    style="width: 100%; height: 250px; object-fit: cover; margin-top: -50px"
                   />
                 </div>
                 <div class="team-info">
@@ -1492,11 +1492,11 @@
                   <div class="team-social pt-15 pb-15 mb-15">
                     ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
                     ${speaker.youtube ? `<a href="${speaker.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
-                    ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                    ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank"><i class="fa-fab fa-tiktok"></i></a>` : ''}
                   </div>
                   <span>${speaker.niche || speaker.title || 'Speaker'}</span>
                   <div class="mt-3">
-                    <button class="btn btn-sm btn-primary" onclick="openVoteModal('${speaker.name}')">Vote</button>
+                    <a class="btn btn-sm btn-primary" href="speakers.html" style="color: white; margin-bottom: -30px">Vote Now</a>
                   </div>
                 </div>
               </div>
