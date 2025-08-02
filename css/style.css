@@ -3393,6 +3393,10 @@ p.checkout-coupon input[type="text"] {
   .zcube-login {
     padding: 30px;
   }
+
+  .dubai-creator-title{
+	font-size: 66px !important;
+  }
 }
 
 .zcube-login h3 {
