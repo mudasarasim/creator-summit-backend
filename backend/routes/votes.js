@@ -46,6 +46,25 @@ router.get('/', (req, res) => {
     res.json(results);
   });
 });
+// GET /api/speakers/:name (single speaker by name)
+router.get('/speakers/:name', (req, res) => {
+  const speakerName = req.params.name;
+  const sql = "SELECT * FROM angels WHERE name = ?";
+
+  db.query(sql, [speakerName], (err, results) => {
+    if (err) {
+      console.error("Error fetching speaker:", err);
+      return res.status(500).json({ message: "Error fetching speaker" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ message: "Speaker not found" });
+    }
+
+    res.json(results[0]);
+  });
+});
+
 
 // GET vote results by speaker
 router.get('/vote-results', (req, res) => {

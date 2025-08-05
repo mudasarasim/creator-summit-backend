@@ -1,316 +1,392 @@
-<!doctype html>
-<html class="no-js" lang="zxx">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-         <title>Dubai Creator Summit</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png">
-        <!-- Place favicon.ico in the root directory -->
+<!DOCTYPE html>
+<html lang="en">
 
-		<!-- CSS here -->
-		<link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i&display=swap" rel="stylesheet"> 
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet"> 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/animate.min.css">
-        <link rel="stylesheet" href="css/magnific-popup.css">
-        <link rel="stylesheet" href="fontawesome/css/all.min.css">
-        <link rel="stylesheet" href="css/dripicons.css">
-        <link rel="stylesheet" href="css/slick.css">
-        <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/responsive.css">
-    </head>
-    <body>
-        <!-- header -->
-        <header id="home" class="header-area">            
-            <div id="header-sticky" class="menu-area">
-                <div class="container">
-                    <div class="second-menu">
-                        <div class="row align-items-center">
-                            <div class="col-xl-3 col-lg-3">
-                                <div class="logo">
-                                    <a href="index.html"><img src="img/logo/logo.png" alt="logo"></a>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-9">
-                                <div class="responsive"><i class="icon dripicons-align-right"></i></div>
-                                <div class="main-menu text-right text-xl-center">
-                                    <nav id="mobile-menu">
-                                        <ul>
-                                            <li class="active has-sub"><a href="#home">Home  +</a>
-												<ul>
-													<li><a href="index.html">Home Page 01</a></li>
-													<li><a href="index2.html">Home Page 02</a></li>
-													<li><a href="index3.html">Home Page 03</a></li>
-												</ul>
-											</li>
-                                            <li class="has-sub">
-												<a href="about.html">About</a>												
-											</li>
-                                            <li class="has-sub">
-												<a href="venue.html">venue</a>
-											</li>
-                                             <li class="has-sub">
-												<a href="#">Speakers +</a>
-												<ul>
-													<li><a href="speakers.html">Speakers Page</a></li>
-													<li><a href="speaker-details.html">Speakers Details</a></li>
-												</ul>
-											</li>
-                                             <li class="has-sub">
-												<a href="#">Shop +</a>
-												<ul>
-													<li><a href="shop.html">Shop Page</a></li>
-													<li><a href="shop-details.html">Shop Details</a></li>
-												</ul>
-											 </li>
-                                            <li><a href="blog.html">News</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 text-right d-none d-xl-block">
-                                <div class="header-btn second-header-btn">
-                                     <a href="contact.html" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- header-end -->
-        <!-- main-area -->
-        <main>
-            <!-- breadcrumb-area -->
-            <section id="parallax" class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix" style="background-image:url(img/innerpage_bg_img.jpg)">
-			 <div class="slider-shape ss-one layer" data-depth="0.10"><img src="img/doddle_6.png" alt="shape"></div>
-			 <div class="slider-shape ss-three layer" data-depth="0.40"><img src="img/doddle_9.png" alt="shape"></div>
-			 <div class="slider-shape ss-four layer" data-depth="0.60"><img src="img/doddle_7.png" alt="shape"></div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
-                            <div class="breadcrumb-wrap text-center">							
-                                <div class="breadcrumb-title mb-30">
-                                    <h2>Our Speakers</h2>                                   
-                                </div>
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">News</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<head>
+  <meta charset="UTF-8">
+  <title>Speaker Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- ✅ Full FontAwesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- JS RENDERING SPEAKERS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Promise.all([
+        fetch('/api/speakers').then(res => res.json()),
+        fetch('/api/vote-results').then(res => res.json())
+      ])
+        .then(([speakers, voteResults]) => {
+          const container = document.getElementById('speakers-container');
+          const urlParams = new URLSearchParams(window.location.search);
+          const voteName = urlParams.get('vote');
+
+          // 🧠 Show only the speaker matching the vote name
+          const selectedSpeaker = speakers.find(s => s.name.toLowerCase() === voteName?.toLowerCase());
+          if (!selectedSpeaker) {
+            container.innerHTML = `<p class="text-danger">Speaker not found.</p>`;
+            return;
+          }
+
+          // Convert voteResults to object for quick lookup
+          const voteMap = {};
+          voteResults.forEach(v => {
+            voteMap[v.speaker] = v.total_votes;
+          });
+
+          const imageUrl = selectedSpeaker.youtube_image && selectedSpeaker.youtube_image.startsWith('/uploads/')
+            ? selectedSpeaker.youtube_image
+            : selectedSpeaker.youtube_image
+              ? `/uploads/${selectedSpeaker.youtube_image}`
+              : 'img/speaker_1.png';
+
+          const votes = voteMap[selectedSpeaker.name] || 0;
+
+          const html = `
+  <div class="col-lg-3 col-md-6 mb-4 mx-auto">
+    <div class="card text-center border-0 shadow-sm">
+      <div class="mb-3">
+        <img 
+          src="${imageUrl}" 
+          alt="${selectedSpeaker.name}" 
+          onclick="openSpeakerModal('${selectedSpeaker.name}', '${selectedSpeaker.role || ''}', '${selectedSpeaker.description || ''}', '${imageUrl}')" 
+          style="width: 100%; height: 250px; object-fit: cover; margin-top: -20px; border-radius: 20px 20px 0px 0px"
+        />
+      </div>
+      <h5 style="font-weight: 700; color: #002b7f;">${selectedSpeaker.name}</h5>
+      <p style="color: #777; margin-top: 5px;">${selectedSpeaker.niche || 'Speaker'}</p>
+      <button class="btn btn-outline-info btn-sm mt-1" onclick="openVoteModal('${selectedSpeaker.name}')">Vote Now</button>
+      <p style="margin-top: 5px; font-weight: bold; color: green;">Votes: ${votes}</p>
+      <div class="d-flex justify-content-center mt-3">
+        ${selectedSpeaker.instagram ? `<a href="${selectedSpeaker.instagram}" target="_blank" class="mx-1"><i class="fab fa-instagram"></i></a>` : ''}
+        ${selectedSpeaker.youtube ? `<a href="${selectedSpeaker.youtube}" target="_blank" class="mx-1"><i class="fab fa-youtube"></i></a>` : ''}
+        ${selectedSpeaker.tiktok ? `<a href="${selectedSpeaker.tiktok}" target="_blank" class="mx-1"><i class="fab fa-tiktok"></i></a>` : ''}
+      </div>
+    </div>
+  </div>
+    `;
+
+          container.innerHTML = html;
+
+          // ✅ Auto-open vote modal if query param exists
+          if (voteName) {
+            setTimeout(() => {
+              openVoteModal(voteName);
+            }, 300);
+          }
+        });
+
+      // Hide modals initially
+      document.getElementById('voteModal').style.display = 'none';
+      document.getElementById('successModal').style.display = 'none';
+    });
+
+  </script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .profile-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #eee;
+      margin: 0 auto 20px auto;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-name {
+      color: #002b7f;
+      font-weight: 700;
+      font-size: 26px;
+    }
+
+    .profile-role {
+      color: #888;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .profile-description {
+      color: #333;
+      font-size: 15px;
+      margin-top: 15px;
+    }
+
+    .social-icons {
+      margin-top: 25px;
+    }
+
+    .social-icons a {
+      font-size: 22px;
+      margin: 0 10px;
+      color: #555;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #007bff;
+    }
+
+    .btn-share {
+      margin: 10px 5px 0;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .vote-btn {
+      margin-top: 30px;
+      font-weight: 600;
+      border-radius: 30px;
+      padding: 10px 25px;
+    }
+
+    /* ✅ Toast styling */
+    #copy-toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #28a745;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 14px;
+      display: none;
+      z-index: 9999;
+      animation: fadeToast 2s ease-in-out;
+    }
+
+    @keyframes fadeToast {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      10% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-5">
+    <a href="speakers.html" class="btn btn-outline-secondary mb-4">
+      <i class="fas fa-arrow-left"></i> Back to All Angels
+    </a>
+
+    <div id="speaker-detail" class="profile-container text-center">
+      <!-- Speaker details will be rendered here -->
+    </div>
+  </div>
+
+  <!-- ✅ Toast element -->
+  <div id="copy-toast">📋 Link copied successfully!</div>
+
+  <!-- Vote Modal -->
+  <div id="voteModal"
+    style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+    <form id="voteForm" class="card p-4" style="width: 100%; max-width: 400px;" onsubmit="submitVote(event)">
+      <h5 class="mb-3 text-center">Vote for <span id="voteSpeakerName"></span></h5>
+
+      <input type="text" name="name" class="form-control mb-2" id="voterName" placeholder="Your Name" required />
+      <input type="email" name="email" class="form-control mb-2" id="voterEmail" placeholder="Your Email" required />
+      <input type="tel" name="phone" class="form-control mb-3" id="voterPhone" placeholder="Your Phone" required />
+
+      <!-- Hidden speaker input -->
+      <input type="hidden" name="speaker" id="voterSpeaker" />
+
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary" onclick="closeVoteModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Vote Now</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal"
+    style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; display:flex; align-items:center; justify-content:center;">
+    <div class="card text-center p-4" style="max-width: 300px;">
+      <h5 id="successMessage" class="mb-3 text-success">Vote Submitted! Thanks For Voting</h5>
+      <button class="btn btn-sm btn-success" onclick="closeSuccessModal()">OK</button>
+    </div>
+  </div>
+
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const speakerName = urlParams.get('speaker');
+
+    if (speakerName) {
+      fetch(`/api/speakers/${encodeURIComponent(speakerName)}`)
+        .then(res => res.json())
+        .then(speaker => {
+          const imageUrl = speaker.youtube_image && speaker.youtube_image.startsWith('/uploads/')
+            ? speaker.youtube_image
+            : speaker.youtube_image
+              ? `/uploads/${speaker.youtube_image}`
+              : 'img/speaker_1.png';
+
+          const shareLink = `${window.location.origin}${window.location.pathname}?speaker=${encodeURIComponent(speaker.name)}`;
+
+          const html = `
+            <img src="${imageUrl}" alt="${speaker.name}" class="profile-img">
+            <h2 class="profile-name">${speaker.name}</h2>
+            <h5 class="profile-role">${speaker.role || ''}</h5>
+            <p class="profile-description">${speaker.description || 'No description provided.'}</p>
             
-			<!-- team-area -->
-            <section id="team" class="team-area team-area-content p-relative pt-120 pb-120 fix">               
-				<div class="circal1 item-zoom-inout"></div>
-				<div class="circal2 item-zoom-inout"></div>
-				<div class="circal3 item-zoom-inout"></div>
-				<div class="circal4 item-zoom-inout"></div>
-                <div class="container">
-                    
-                    <div class="row">
-						<div class="col-lg-5">
-							<div class="wow fadeInLeft" data-animation="fadeInLeft" data-delay=".2s">
-								<img src="img/speaker_9.jpg" alt="speaker_9">
-							</div>
-                        </div>
-                        <div class="col-lg-7">
-                            <div class="s-about-content pl-30 wow fadeInRight" data-animation="fadeInRight" data-delay=".2s">                          
-								<h2>James D. Franklin</h2>    
-								<span><i>CEO of</i> Fire Epic</span>
-                                <p>We promote interactions, production of most relevant ideas and we act to create high quality documents that sustain ideas with strength. Our Design Suite has been designed to allow each and every kind of skills and expertise to express themselves together, serving a common purpose. Simplicity and quality are truly our keywords to deliver a never lived before experience. We design with main focus, quick and natural handling by our users.</p>
-								 <p>We promote interactions, production of most relevant ideas and we act to create high quality documents that sustain ideas with strength. Our Design Suite has been designed to allow each and every kind of skills and expertise to express themselves together, serving a common purpose. Simplicity and quality .</p>
-								<div class="social mt-50">                                    
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
-									<a href="#" class="btn"><i class="far fa-ticket-alt"></i> Buy Ticket</a>
-                                </div>
-                               
-                            </div>
-                        </div>
-						 
-                    </div>
-                </div>
-            </section>
-            <!-- team-area-end -->			
-            <!-- blog-area -->
-            <section id="blog" class="blog-area p-relative fix pt-100 pb-80">
-			 
-                <div class="container">
-                  <div class="section-t team-t paroller" data-paroller-factor="0.15" data-paroller-factor-lg="0.15" data-paroller-factor-md="0.15" data-paroller-factor-sm="0.15" data-paroller-type="foreground" data-paroller-direction="horizontal"><h2>News</h2></div>
-			 <div class="row justify-content-center">
-                        <div class="col-xl-8 col-lg-8">
-                            <div class="section-title mb-80">
-                                <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">feeds</span>
-                                <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">News Feeds</h2>
-                            </div>
-                        </div>
-						<div class="col-xl-4 col-lg-4 text-right">
-                           
-                        </div>
-                    </div>
-                    <div class="row blog-active2 wow fadeInDown animated" data-animation="fadeInDown animated" data-delay=".2s">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-post mb-30">
-                                <div class="blog-thumb">
-                                    <a href="blog-details.html"><img src="img/blog_img_1.jpg" alt="img"></a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="b-meta mb-20">
-                                    <ul>
-										<li><i class="far fa-comments"></i>35 Comments</li>
-                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
-                                    </ul>
-                                    </div>
-                                    <h4><a href="blog-details.html">The issue with any content strategy is time.</a></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
-                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-post active mb-30">
-                                <div class="blog-thumb">
-                                    <a href="blog-details.html"><img src="img/blog_img_2.jpg" alt="img"></a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="b-meta mb-20">
-                                    <ul>
-										<li><i class="far fa-comments"></i>35 Comments</li>
-                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
-                                    </ul>
-                                    </div>
-                                    <h4><a href="blog-details.html">Time to sit down and think about what kind of content</a></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
-                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="single-post mb-30">
-                                <div class="blog-thumb">
-                                    <a href="blog-details.html"><img src="img/blog_img_3.jpg" alt="img"></a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="b-meta mb-20">
-                                      <ul>
-										<li><i class="far fa-comments"></i>35 Comments</li>
-                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
-                                    </ul>
-                                    </div>
-                                    <h4><a href="blog-details.html">Should be created, time to stop and write, or record.</a></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
-                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-						<div class="col-lg-4 col-md-6">
-                            <div class="single-post mb-30">
-                                <div class="blog-thumb">
-                                    <a href="blog-details.html"><img src="img/blog_img_2.jpg" alt="img"></a>
-                                </div>
-                                <div class="blog-content">
-                                    <div class="b-meta mb-20">
-                                      <ul>
-                                        <li><a href="#"><i class="far fa-user"></i>by Admin</a></li>
-                                        <li><i class="far fa-comments"></i>35 Comments</li>
-                                    </ul>
-                                    </div>
-                                    <h4><a href="blog-details.html">User Experience Psychology And Performance Smashing</a></h4>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisi
-                                    cing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- blog-area-end -->
-        </main>
-        <!-- main-area-end -->
-        <!-- footer -->
-        <footer class="footer-bg footer-p" style="background-image:url(img/footer_bg_img.jpg);background-size: cover;">
-          
-            <div class="footer-top">
-                <div class="container">
-                    <div class="row justify-content-between">
-                        <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
-                            <div class="footer-widget pt-120 mb-30">
-                                <div class="logo mb-35">
-                                    <a href="#"><img src="img/footer_logo.png" alt="logo"></a>
-                                </div>
-                                <div class="footer-text mb-20">
-                                    <p>The issue with any content strategy is time. Time to sit down and think about what kind of content should be created, time to stop and write, or record, edit and publish, and time to engage with your audience to promote the content you created.</p>
-                                </div>
-                                <div class="footer-social">                                    
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                    <a href="#"><i class="fab fa-google-plus-g"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div class="social-icons">
+              ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+              ${speaker.youtube ? `<a href="${speaker.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
+              ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
             </div>
-            <div class="copyright-wrap pb-120">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">						
-                            <div class="copyright-text text-center">
-								<div class="footer-link">
-                                    <ul>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Eventime</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                        <li><a href="#">Tickets</a></li>
-                                        <li><a href="#">Venue</a></li>
-                                    </ul>
-                                </div>                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            <div class="mt-3">
+              <button class="btn btn-outline-primary btn-share" onclick="copyLink('${shareLink}')">
+                <i class="fas fa-copy"></i> Copy Profile Link
+              </button>
+              <button class="btn btn-outline-success btn-share" onclick="shareLinkNow('${shareLink}')">
+                <i class="fas fa-share"></i> Share
+              </button>
             </div>
-        </footer>
-        <!-- footer-end -->
 
+            <button class="btn btn-primary vote-btn" onclick="openVoteModal('${speaker.name}')">
+  Vote for ${speaker.name}
+</button>
 
+          `;
 
-		<!-- JS here -->
-        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/one-page-nav-min.js"></script>
-        <script src="js/slick.min.js"></script>
-        <script src="js/ajax-form.js"></script>
-        <script src="js/paroller.js"></script>
-        <script src="js/wow.min.js"></script>
-        <script src="js/parallax.min.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/jquery.counterup.min.js"></script>
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/element-in-view.js"></script>
-		<script src="js/isotope.pkgd.min.js"></script>
-        <script src="js/imagesloaded.pkgd.min.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+          document.getElementById('speaker-detail').innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById('speaker-detail').innerHTML = "<p class='text-danger'>Speaker not found.</p>";
+        });
+    } else {
+      document.getElementById('speaker-detail').innerHTML = "<p class='text-muted'>No speaker selected.</p>";
+    }
+
+    // ✅ Copy profile link with toast
+    function copyLink(link) {
+      navigator.clipboard.writeText(link).then(() => {
+        const toast = document.getElementById("copy-toast");
+        toast.style.display = "block";
+        toast.classList.remove("showing");
+        void toast.offsetWidth; // force reflow
+        toast.classList.add("showing");
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 2000);
+      });
+    }
+
+    // ✅ Use Web Share API
+    function shareLinkNow(link) {
+      if (navigator.share) {
+        navigator.share({
+          title: "Check out this speaker!",
+          url: link
+        }).catch(console.error);
+      } else {
+        alert("Sharing not supported. You can copy the link instead.");
+      }
+    }
+  </script>
+
+  <script>
+    function openVoteModal(speakerName) {
+      document.getElementById('voteSpeakerName').innerText = speakerName;
+      document.getElementById('voterSpeaker').value = speakerName;
+      document.getElementById('voteModal').style.display = 'flex';
+    }
+
+    function closeVoteModal() {
+      document.getElementById('voteModal').style.display = 'none';
+      document.getElementById('voteSpeakerName').innerText = '';
+      document.getElementById('voterName').value = '';
+      document.getElementById('voterEmail').value = '';
+      document.getElementById('voterPhone').value = '';
+      document.getElementById('voterSpeaker').value = '';
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').style.display = 'none';
+    }
+
+    function submitVote(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("voterName").value.trim();
+      const email = document.getElementById("voterEmail").value.trim();
+      const phone = document.getElementById("voterPhone").value.trim();
+      const speaker = document.getElementById("voterSpeaker").value.trim();
+
+      fetch('/api/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, speaker })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const modal = document.getElementById("successModal");
+          const message = document.getElementById("successMessage");
+
+          if (data.message === "Vote submitted successfully!") {
+            message.innerText = "✅ Vote Submitted! Thanks For Voting";
+            message.classList.add("text-success");
+            message.classList.remove("text-danger");
+          } else {
+            message.innerText = "⚠️ " + data.message;
+            message.classList.add("text-danger");
+            message.classList.remove("text-success");
+          }
+
+          closeVoteModal();
+          modal.style.display = "flex";
+        })
+        .catch(err => {
+          console.error("Error:", err);
+        });
+    }
+  </script>
+
+</body>
+
 </html>
