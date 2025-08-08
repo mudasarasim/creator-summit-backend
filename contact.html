@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Xpertone Creator Summit</title>
+    <title>Dubai Creator Summit</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -43,11 +43,7 @@
               <div class="col-xl-3 col-lg-3">
                 <div class="logo">
                   <a href="index.html"
-                    ><img
-                      src="img/logo/logo.png"
-                      alt="logo"
-                      style="width: 200px; height: 70px"
-                  /></a>
+                    ></a>
                 </div>
               </div>
               <div class="col-xl-6 col-lg-9">
@@ -101,38 +97,43 @@
     <!-- main-area -->
     <main>
       <!-- breadcrumb-area -->
-      <section>
-  <div class="breadcrumb-section" style="position: relative; background-image: url('img/beourangel.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; display: flex; align-items: center; justify-content: center;">
-    
-    <!-- Overlay -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);"></div>
-
-    <!-- Content -->
-    <div class="container" style="position: relative; z-index: 1;">
-      <div class="row justify-content-center">
-        <div class="col-xl-6 col-lg-8 text-center">
-          <div class="breadcrumb-wrap">
-            <div class="breadcrumb-title mb-30">
-              <h2 style="color: white;">Be Our Angel</h2>
+      <section
+        id="parallax"
+        class="slider-area breadcrumb-area d-flex align-items-center justify-content-center fix"
+        style="background-image: url(img/innerpage_bg_img.jpg)"
+      >
+        <div class="slider-shape ss-one layer" data-depth="0.10">
+          <img src="img/doddle_6.png" alt="shape" />
+        </div>
+        <div class="slider-shape ss-three layer" data-depth="0.40">
+          <img src="img/doddle_9.png" alt="shape" />
+        </div>
+        <div class="slider-shape ss-four layer" data-depth="0.60">
+          <img src="img/doddle_7.png" alt="shape" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+              <div class="breadcrumb-wrap text-center">
+                <div class="breadcrumb-title mb-30">
+                  <h2>Be Our Angel</h2>
+                </div>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="index.html">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      Be Our Angel
+                    </li>
+                  </ol>
+                </nav>
+              </div>
             </div>
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb justify-content-center" style="background: transparent;">
-                <li class="breadcrumb-item">
-                  <a href="index.html" style="color: #fff;">Home</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page" style="color: #ddd;">
-                  Be Our Angel
-                </li>
-              </ol>
-            </nav>
           </div>
         </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-       <!-- contact-area start -->
+      </section>
+      <!-- contact-area start -->
       <section id="contact" class="pt-120 pb-120">
         <div class="container">
           <div class="row justify-content-center">
@@ -146,7 +147,7 @@
           <div class="row">
             <div class="col-xl-12">
               <div class="contact-wrapper">
-                <form action="https://dubaicreatorsummit.com/submit-angel" method="POST" enctype="multipart/form-data">
+                <form action="http://localhost:3000/submit-angel" method="POST" enctype="multipart/form-data">
 
                   <div class="row">
                     <!-- Name -->
@@ -229,6 +230,32 @@
                         />
                       </div>
                     </div>
+
+                    <!-- Facebook -->
+<div class="col-lg-6 mb-30">
+  <div class="contact-phone c-icon">
+    <i class="fab fa-facebook"></i>
+    <input
+      id="facebook"
+      name="facebook"
+      placeholder="Facebook Profile URL"
+      type="text"
+    />
+  </div>
+</div>
+
+<!-- LinkedIn -->
+<div class="col-lg-6 mb-30">
+  <div class="contact-phone c-icon">
+    <i class="fab fa-linkedin"></i>
+    <input
+      id="linkedin"
+      name="linkedin"
+      placeholder="LinkedIn Profile URL"
+      type="text"
+    />
+  </div>
+</div>
 
                     <!-- Image Upload -->
                     <div class="col-lg-6 mb-30">

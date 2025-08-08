@@ -20,20 +20,40 @@ const upload = multer({ storage: storage });
 
 router.post('/submit-angel', upload.single('youtube_image'), (req, res) => {
   const {
-    name, email, phone, instagram, tiktok,
-    youtube, followers, niche, other_niche, description
+    name,
+    email,
+    phone,
+    instagram,
+    tiktok,
+    youtube,
+    facebook,    // ✅ NEW
+    linkedin,    // ✅ NEW
+    followers,
+    niche,
+    other_niche,
+    description
   } = req.body;
 
   const youtube_image = req.file ? `/uploads/${req.file.filename}` : '';
 
   const sql = `INSERT INTO angels 
-    (name, email, phone, instagram, tiktok, youtube, youtube_image, followers, niche, other_niche, description) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    (name, email, phone, instagram, tiktok, youtube, facebook, linkedin, youtube_image, followers, niche, other_niche, description) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   const values = [
-    name, email, phone, instagram, tiktok,
-    youtube, youtube_image, followers,
-    niche, other_niche, description
+    name,
+    email,
+    phone,
+    instagram,
+    tiktok,
+    youtube,
+    facebook,     // ✅ MATCHED ORDER
+    linkedin,     // ✅ MATCHED ORDER
+    youtube_image,
+    followers,
+    niche,
+    other_niche,
+    description
   ];
 
   db.query(sql, values, (err, result) => {
@@ -44,6 +64,7 @@ router.post('/submit-angel', upload.single('youtube_image'), (req, res) => {
     res.redirect('/speakers.html');
   });
 });
+
 
 router.get('/api/speakers', (req, res) => {
   db.query('SELECT * FROM angels', (err, results) => {
