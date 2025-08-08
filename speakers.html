@@ -78,16 +78,16 @@
 
         const html = `
   <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInDown animated">
-    <div class="single-team text-center pt-50 pb-50 mb-30" style="border-radius: 20px; background: #fff;">
-      <div class="team-thumb" style="height: 250px; margin-top: -50px; display: flex; justify-content: center; align-items: center; background: #fff; border-radius: 20px 20px 0 0;">
+    <div class="single-team text-center pt-50 pb-50 mb-30" style="border-radius: 30px; background: #fff;">
+      <div class="team-thumb" style="height: 350px; margin-top: -40px; display: flex; justify-content: center; align-items: center; background: transparent;  border-radius: 20px 20px 0 0;">
         <img 
           src="${imageUrl}" 
-          alt="${speaker.name}" 
+          alt="${speaker.name}"  class="imh"
           onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')" 
-          style="max-height: 100%; max-width: 100%; object-fit: contain; display: block; border-radius: 20px 20px 0 0;"
+          style="height: 80%; width: 90%; border-radius: 50%; border: 6px solid #e91e63; margin-top: -50px;"
         />
       </div>
-      <div class="team-info">
+      <div class="team-info" style="margin-top: -60px">
         <h5>${speaker.name}</h5>
         <div class="team-social pt-15 pb-15 mb-15">
           ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
@@ -184,6 +184,14 @@
 
 
   <body>
+    <style>
+      .imh{
+        transition: 1s !important;
+      }
+      .imh:hover{
+        transform: rotateY(360deg) !important;
+      }
+    </style>
     <!-- header -->
     <header
       id="home"
