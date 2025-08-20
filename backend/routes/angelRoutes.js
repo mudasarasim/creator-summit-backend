@@ -1,7 +1,7 @@
 // backend/routes/angelRoutes.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
+const db = require('../db');  // <- this is pool.promise()
 const multer = require('multer');
 const path = require('path');
 
@@ -17,63 +17,70 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+/**
+ * POST: Submit Angel
+ */
+router.post('/submit-angel', upload.single('youtube_image'), async (req, res) => {
+  try {
+    const {
+      name,
+      email,
+      phone,
+      instagram,
+      tiktok,
+      youtube,
+      facebook,
+      linkedin,
+      followers,
+      niche,
+      other_niche,
+      description
+    } = req.body;
 
-router.post('/submit-angel', upload.single('youtube_image'), (req, res) => {
-  const {
-    name,
-    email,
-    phone,
-    instagram,
-    tiktok,
-    youtube,
-    facebook,    // ✅ NEW
-    linkedin,    // ✅ NEW
-    followers,
-    niche,
-    other_niche,
-    description
-  } = req.body;
+    const youtube_image = req.file ? `/uploads/${req.file.filename}` : '';
 
-  const youtube_image = req.file ? `/uploads/${req.file.filename}` : '';
+    const sql = `
+      INSERT INTO angels 
+      (name, email, phone, instagram, tiktok, youtube, facebook, linkedin, youtube_image, followers, niche, other_niche, description) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
 
-  const sql = `INSERT INTO angels 
-    (name, email, phone, instagram, tiktok, youtube, facebook, linkedin, youtube_image, followers, niche, other_niche, description) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+      name,
+      email,
+      phone,
+      instagram,
+      tiktok,
+      youtube,
+      facebook,
+      linkedin,
+      youtube_image,
+      followers,
+      niche,
+      other_niche,
+      description
+    ];
 
-  const values = [
-    name,
-    email,
-    phone,
-    instagram,
-    tiktok,
-    youtube,
-    facebook,     // ✅ MATCHED ORDER
-    linkedin,     // ✅ MATCHED ORDER
-    youtube_image,
-    followers,
-    niche,
-    other_niche,
-    description
-  ];
+    await db.query(sql, values);
 
-  db.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error inserting data:', err);
-      return res.status(500).send('Server Error');
-    }
     res.redirect('/speakers.html');
-  });
+  } catch (err) {
+    console.error('❌ Error inserting data:', err);
+    res.status(500).send('Server Error');
+  }
 });
 
-
-router.get('/api/speakers', (req, res) => {
-  db.query('SELECT * FROM angels', (err, results) => {
-    if (err) {
-      console.error('Error fetching speakers:', err);
-      return res.status(500).json({ error: 'Database error' });
-    }
+/**
+ * GET: All Speakers
+ */
+router.get('/api/speakers', async (req, res) => {
+  try {
+    const [results] = await db.query('SELECT * FROM angels');
     res.json(results);
-  });
+  } catch (err) {
+    console.error('❌ Error fetching speakers:', err);
+    res.status(500).json({ error: 'Database error' });
+  }
 });
 
 module.exports = router;
