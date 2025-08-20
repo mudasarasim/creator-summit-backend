@@ -1,19 +1,16 @@
 // backend/db.js
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 
-const db = mysql.createConnection({
-  host: 'bazarhub.com.pk',
-  user: 'u167227426_xpertone',
-  password: '9Se44k!+~b=', // your DB password if any
-  database: 'u167227426_xpertone'
+// Create a pool
+const pool = mysql.createPool({
+  host: "bazarhub.com.pk",
+  user: "u167227426_xpertone",
+  password: "9Se44k!+~b=", // your DB password
+  database: "u167227426_xpertone",
+  waitForConnections: true,
+  connectionLimit: 10,   // up to 10 connections
+  queueLimit: 0          // unlimited queued requests
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('❌ Database connection error:', err);
-  } else {
-    console.log('✅ Connected to MySQL database');
-  }
-});
-
-module.exports = db;
+// Export the promise-based pool
+module.exports = pool.promise();
