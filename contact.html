@@ -7,7 +7,7 @@
   <title>Dubai Creator Summit</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="img/logo/logo.png" />
   <!-- Place favicon.ico in the root directory -->
 
   <!-- CSS here -->
@@ -27,7 +27,6 @@
 </head>
 
 <body>
-  <!-- header -->
   <!-- header -->
   <header id="home" class="header-area fixed-top" style="background-color: white; z-index: 999">
     <div id="navbar" class="menu-area" style="background-color: white">
@@ -76,8 +75,8 @@
                 </a>
 
                 <!-- Buy Ticket Button -->
-                <a href="index.html#pricing" class="btn">
-                  <i class="far fa-ticket-alt"></i> Buy Ticket
+                <a href="https://wa.me/971545832325" target="_blank" rel="noreferrer" class="btn">
+                    <i class="far fa-ticket-alt"></i> Buy Ticket
                 </a>
               </div>
             </div>
@@ -209,33 +208,40 @@
                   <div class="col-lg-6 mb-30">
                     <label class="upload-label">Upload Your Image:</label>
                     <div class="custom-file-input-wrapper">
-                      <input type="file" name="youtube_image" accept="image/*" class="custom-file-input" required />
+                      <input type="file" name="youtube_image" accept="image/*" class="custom-file-input" id="imageUpload" required />
                       <span class="custom-file-text">Choose Image</span>
                     </div>
+                  
+                    <!-- Success message placeholder -->
+                    <p id="uploadMsg" style="color: green; font-weight: 500; margin-top: 8px; display: none;">
+                      ✅ Image uploaded successfully!
+                    </p>
                   </div>
 
+                  <script>
+                    document.getElementById("imageUpload").addEventListener("change", function () {
+                      if (this.files && this.files.length > 0) {
+                        document.getElementById("uploadMsg").style.display = "block";
+                      } else {
+                        document.getElementById("uploadMsg").style.display = "none";
+                      }
+                    });
+                  </script>
+
+                  <!-- Followers -->
                   <div class="col-lg-6 mb-30" style="margin-top: 34px">
                     <div class="contact-phone c-icon">
                       <i class="fas fa-users"></i>
-                      <input id="followers" name="followers" placeholder="Total followers (e.g. 15000)" type="number"
+                      <input id="followers" name="followers" placeholder="Total followers (e.g. 15000)" type="number" min="1"
                         required />
                     </div>
                   </div>
 
                   <!-- Niche Area Dropdown -->
                   <div class="col-lg-6 mb-30">
-                    <label for="niche" class="upload-label">Select or Type Your Niche Area:</label>
-                    <div class="input-icon-wrapper">
+                    <div class="contact-phone c-icon">
                       <i class="fas fa-tags"></i>
-                      <input id="niche" name="niche" class="form-control input-with-icon" list="niche-options"
-                        placeholder="Start typing or choose..." required />
-                      <datalist id="niche-options">
-                        <option value="Fashion">
-                        <option value="Travel">
-                        <option value="Food">
-                        <option value="Fitness">
-                        <option value="Tech">
-                      </datalist>
+                      <input id="niche" name="niche" placeholder="Type your niche (e.g. Fitness/Lifestyle)" type="text" />
                     </div>
                   </div>
 
@@ -368,10 +374,11 @@
                 </p>
               </div>
               <div class="footer-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-google-plus-g"></i></a>
+                  <a href="https://www.facebook.com/share/1BzviXQyWM/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                  <!-- <a href="#"><i class="fab fa-twitter"></i></a> -->
+                  <a href="https://www.instagram.com/dubai_creator_summit?igsh=eHZqZjV4dGJvMWdv&utm_source=qr" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                  <!-- <a href="#"><i class="fab fa-google-plus-g"></i></a> -->
+                </div>
               </div>
             </div>
           </div>
