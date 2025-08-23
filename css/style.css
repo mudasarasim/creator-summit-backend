@@ -6457,3 +6457,33 @@ pre cite {
 textarea {
   resize: vertical;
 }
+
+.hidden-item {
+  display: none;
+}
+
+.extraFeatures {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.extraFeatures.expanded {
+  max-height: 1000px; /* adjust if needed */
+}
+.toggleBtn {
+  cursor: pointer;
+  color: #ff2f68;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.toggleBtn i {
+  margin-left: 5px;
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+
+
