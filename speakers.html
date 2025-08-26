@@ -63,9 +63,10 @@
 
       // Convert voteResults to object for quick lookup
       const voteMap = {};
-      voteResults.forEach(v => {
-        voteMap[v.speaker] = v.total_votes;
-      });
+     voteResults.forEach(v => {
+  voteMap[v.id] = v.votes;
+});
+
 
       speakers.forEach((speaker) => {
         const imageUrl = speaker.youtube_image && speaker.youtube_image.startsWith('/uploads/')
@@ -74,7 +75,8 @@
             ? `/uploads/${speaker.youtube_image}`
             : 'img/speaker_1.png';
 
-        const votes = voteMap[speaker.name] || 0;
+       const votes = voteMap[speaker.id] || 0;
+
 
         const html = `
   <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInDown animated">
@@ -98,12 +100,12 @@
         </div>
         <span>${speaker.niche || speaker.title || 'Speaker'}</span>
         <div class="mt-2">
-          <a class="btn btn-sm btn-primary mt-2" href="speaker-details.html?speaker=${encodeURIComponent(speaker.name)}" style="margin-bottom: -25px; color: white">
+          <a class="btn btn-sm btn-primary mt-2" href="speaker-details.html?id=${speaker.id}" style="margin-bottom: -25px; color: white">
             Vote Now
           </a>
         </div>
       </div>
-      <p style="margin-top: 35px; margin-bottom: -28px; font-weight: bold; color: green;">Votes: ${votes}</p>
+      <p style="margin-top: 35px; margin-bottom: -28px; font-weight: bold; color: green;id="speaker-${speaker.id}-votes"">Votes: ${votes}</p>
     </div>
   </div>
 `;
@@ -126,11 +128,12 @@
     document.getElementById('successModal').style.display = 'none';
   });
 
-  function openVoteModal(speakerName) {
-    document.getElementById('voteSpeakerName').innerText = speakerName;
-    document.getElementById('voterSpeaker').value = speakerName;
-    document.getElementById('voteModal').style.display = 'flex';
-  }
+  function openVoteModal(speakerId, speakerName) {
+  document.getElementById('voteSpeakerName').innerText = speakerName;
+  document.getElementById('voterSpeaker').value = speakerId; 
+  document.getElementById('voteModal').style.display = 'flex';
+}
+
 
   function closeVoteModal() {
     document.getElementById('voteModal').style.display = 'none';
@@ -146,45 +149,36 @@
   }
 
   function submitVote(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    const name = document.getElementById("voterName").value.trim();
-    const email = document.getElementById("voterEmail").value.trim();
-    const phone = document.getElementById("voterPhone").value.trim();
-    const speaker = document.getElementById("voterSpeaker").value.trim();
+  const name = document.getElementById("voterName").value.trim();
+  const email = document.getElementById("voterEmail").value.trim();
+  const phone = document.getElementById("voterPhone").value.trim();
+  const speaker_id = document.getElementById("voterSpeaker").value.trim();
 
-    fetch('/api/vote', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, phone, speaker })
-    })
-    .then(res => res.json())
-    .then(data => {
-      const modal = document.getElementById("successModal");
-      const message = document.getElementById("successMessage");
+  fetch('/api/vote', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, phone, speaker_id })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message); // temporary
+    // ✅ Refresh votes after voting
+    fetch('/api/vote-results')
+      .then(res => res.json())
+      .then(voteResults => {
+        voteResults.forEach(v => {
+  const voteEl = document.querySelector(`#speaker-${v.id}-votes`);
+  if (voteEl) voteEl.innerText = `Votes: ${v.votes}`; // ✔ correct key
+});
 
-      if (data.message === "Vote submitted successfully!") {
-        message.innerText = "✅ Vote Submitted! Thanks For Voting";
-        message.classList.add("text-success");
-        message.classList.remove("text-danger");
-      } else {
-        message.innerText = "⚠️ " + data.message;
-        message.classList.add("text-danger");
-        message.classList.remove("text-success");
-      }
+      });
+  })
+  .catch(err => console.error(err));
+}
 
-      closeVoteModal();
-      modal.style.display = "flex";
-    })
-    .catch(err => {
-      console.error("Error:", err);
-    });
-  }
 </script>
-
-
-
-
   <body>
     <style>
       .imh{
@@ -643,11 +637,17 @@
     <input type="tel" name="phone" class="form-control mb-3" id="voterPhone" placeholder="Your Phone" required />
 
     <!-- Hidden speaker input -->
-    <input type="hidden" name="speaker" id="voterSpeaker" />
+    <input type="hidden" name="speaker_id" id="voterSpeaker" />
+
 
     <div class="d-flex justify-content-between">
       <button type="button" class="btn btn-secondary" onclick="closeVoteModal()">Cancel</button>
-      <button type="submit" class="btn btn-primary">Vote Now</button>
+      <button class="btn btn-sm btn-primary mt-2" 
+        onclick="openVoteModal('${speaker.id}', '${speaker.name}')" 
+        style="margin-bottom: -25px; color: white">
+  Vote Now
+</button>
+
     </div>
   </form>
 </div>

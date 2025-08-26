@@ -51,7 +51,7 @@
   </div>
 
   <script>
-  fetch('https://dubaicreatorsummit.com/api/vote-results')
+  fetch('http://localhost:3000/api/vote-results')
     .then(res => res.json())
     .then(data => {
       const tbody = document.getElementById('resultsBody');
@@ -90,8 +90,8 @@
 
         row.innerHTML = `
           <td>${index + 1} ${rankBadge}</td>
-          <td>${item.speaker}</td>
-          <td>${item.total_votes}</td>
+          <td>${item.id}</td>
+          <td>${item.votes}</td>
         `;
         tbody.appendChild(row);
       });

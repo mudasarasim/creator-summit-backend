@@ -18,22 +18,25 @@ router.get('/', async (req, res) => {
 /**
  * UPDATE angel by ID
  */
-router.put('/angels/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const angelId = req.params.id;
     const {
       name, email, phone, instagram, tiktok,
-      followers, niche, description
+      youtube, followers, niche, other_niche, description
     } = req.body;
 
     const query = `
       UPDATE angels SET
-        name = ?, email = ?, phone = ?, instagram = ?, tiktok = ?,
-        followers = ?, niche = ?, description = ?
+        name = ?, email = ?, phone = ?, instagram = ?, tiktok = ?, 
+        youtube = ?, followers = ?, niche = ?, other_niche = ?, description = ?
       WHERE id = ?
     `;
 
-    const values = [name, email, phone, instagram, tiktok, followers, niche, description, angelId];
+    const values = [
+      name, email, phone, instagram, tiktok, youtube || null,
+      followers, niche, other_niche || null, description, angelId
+    ];
 
     const [result] = await db.query(query, values);
 
@@ -64,6 +67,18 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     console.error('❌ Delete error:', err);
     res.status(500).json({ message: 'Internal server error' });
+  }
+});
+// Get single angel by ID
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [rows] = await db.query('SELECT * FROM angels WHERE id = ?', [id]);
+    if (!rows.length) return res.status(404).json({ message: 'Angel not found' });
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

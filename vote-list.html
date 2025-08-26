@@ -91,7 +91,7 @@
         </tr>
       `;
 
-      fetch('https://dubaicreatorsummit.com/api/votes')
+      fetch('http://localhost:3000/api/votes')
         .then(response => {
           if (!response.ok) throw new Error("Network response was not ok");
           return response.json();
@@ -115,7 +115,7 @@
               <td>${vote.name}</td>
               <td>${vote.email}</td>
               <td>${vote.phone}</td>
-              <td>${vote.speaker}</td>
+              <td>${vote.speaker_id}</td>
               <td>${new Date(vote.created_at).toLocaleString()}</td>
             `;
             tableBody.appendChild(row);
