@@ -104,7 +104,7 @@
         tableBody.innerHTML = '';
         await new Promise(r => setTimeout(r, 500));
 
-        const res = await fetch('http://localhost:3000/api/admin/angels', {
+        const res = await fetch('https://dubaicreatorsummit.com/api/admin/angels', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
         });
 
@@ -143,7 +143,7 @@
 
     function deleteAngel(id) {
       if (!confirm("Are you sure you want to delete this submission?")) return;
-      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
+      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +156,7 @@
     }
 
     function editAngel(id) {
-      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
+      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
       })
       .then(res => res.json())
@@ -194,7 +194,7 @@
         description: document.getElementById('edit-description').value
       };
 
-      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
+      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
