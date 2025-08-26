@@ -15,8 +15,6 @@ const PORT = 3000;
 // ✅ Configure CORS
 app.use(cors({
   origin: [
-    "http://localhost:3000",     // local frontend
-    "http://127.0.0.1:3000",     // alternative local
     "https://dubaicreatorsummit.com",    // replace with your live frontend domain
   ],
   methods: "GET,POST,PUT,DELETE",
