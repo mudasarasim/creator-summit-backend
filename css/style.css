@@ -3303,7 +3303,7 @@ p.checkout-coupon input[type="text"] {
 @media (max-width: 767px) {
      
       .logo{
-        margin-top: -100px;
+        margin-top: -100px !important;
       }
      
 }
