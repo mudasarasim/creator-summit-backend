@@ -3295,6 +3295,19 @@ p.checkout-coupon input[type="text"] {
   background: #FE4536 none repeat scroll 0 0;
 }
 
+.logo{
+        width: 200px !important;
+        margin: -60px 0px !important;
+      }
+
+@media (max-width: 767px) {
+     
+      .logo{
+        margin-top: -100px;
+      }
+     
+}
+
 .payment-method .btn-link {
   -moz-user-select: none;
   background: no-repeat;

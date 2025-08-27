@@ -40,7 +40,12 @@
               <!-- Logo -->
               <div class="col-xl-3 col-lg-3">
                 <div class="logo">
-                  <a href="index.html"></a>
+                  <a href="index.html">
+                    <img
+                      src="img/logo.png"
+                      alt="logo"                 
+                  />
+                  </a>
                 </div>
               </div>
             
@@ -149,7 +154,7 @@
         <div class="row">
           <div class="col-xl-12">
             <div class="contact-wrapper">
-              <form action="https://dubaicreatorsummit.com/submit-angel" method="POST" enctype="multipart/form-data">
+              <form id="angelForm" action="http://localhost:3000/submit-angel" method="POST" enctype="multipart/form-data">
 
                 <div class="row">
                   <!-- Name -->
@@ -229,6 +234,33 @@
                       ✅ Image uploaded successfully!
                     </p>
                   </div>
+<script>
+document.getElementById("angelForm").addEventListener("submit", async function (e) {
+  e.preventDefault(); // stop normal submit
+
+  const formData = new FormData(this);
+
+  try {
+    let res = await fetch("http://localhost:3000/submit-angel", {
+      method: "POST",
+      body: formData
+    });
+
+    let data = await res.json();
+
+    if (data.success) {
+      alert(data.message);   // ✅ success alert
+      this.reset();          // reset form
+      window.location.href = "speakers.html"; // ✅ redirect after alert
+    } else {
+      alert("❌ Something went wrong!");
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    alert("⚠️ Server error, please try again.");
+  }
+});
+</script>
 
                   <script>
                     document.getElementById("imageUpload").addEventListener("change", function () {
