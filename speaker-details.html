@@ -190,7 +190,7 @@
                 ? `/uploads/${speaker.youtube_image}`
                 : 'img/speaker_1.png';
 
-            const shareLink = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(speaker.name)}`;
+            const shareLink = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(speaker.id)}`;
 
             speakerDetail.innerHTML = `
               <img src="${imageUrl}" alt="${speaker.name}" class="profile-img">
