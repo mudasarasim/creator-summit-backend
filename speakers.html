@@ -80,10 +80,9 @@
 
       // Convert voteResults to object for quick lookup
       const voteMap = {};
-     voteResults.forEach(v => {
-  voteMap[v.id] = v.votes;
-});
-
+      voteResults.forEach(v => {
+        voteMap[v.id] = v.votes;
+      });
 
       speakers.forEach((speaker) => {
         const imageUrl = speaker.youtube_image && speaker.youtube_image.startsWith('/uploads/')
@@ -92,40 +91,46 @@
             ? `/uploads/${speaker.youtube_image}`
             : 'img/speaker_1.png';
 
-       const votes = voteMap[speaker.id] || 0;
+        const votes = voteMap[speaker.id] || 0;
 
+        // ✅ Show only first 3 words of niche
+        let nicheText = speaker.niche || speaker.title || 'Speaker';
+        const words = nicheText.split(" ");
+        if (words.length > 3) {
+          nicheText = words.slice(0, 3).join(" ") + " ...";
+        }
 
         const html = `
-  <div class="col-lg-4 col-md-6 col-sm-12 wow fadeInDown animated">
-    <div class="single-team text-center pt-50 pb-50 mb-30" style="border-radius: 30px; background: #fff; margin-bottom: 40px">
-      <div class="team-thumb" style="margin-top: -40px; display: flex; justify-content: center; align-items: center; background: transparent;  border-radius: 20px 20px 0 0;">
-        <img 
-          src="${imageUrl}" 
-          alt="${speaker.name}"  class="imh"
-          onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')" 
-          style="height: 100%; width: 100%; border-radius: 5%; border: 4px solid #e91e63; margin-top: -30px; margin-bottom: 45px"
-        />
-      </div>
-      <div class="team-info" style="margin-top: -60px">
-        <h5>${speaker.name}</h5>
-        <div class="team-social pt-15 pb-15 mb-15">
-          ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
-          ${speaker.youtube ? `<a href="${speaker.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
-          ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
-          ${speaker.tiktok ? `<a href="${speaker.facebook}" target="_blank"><i class="fab fa-facebook"></i></a>` : ''}
-          ${speaker.tiktok ? `<a href="${speaker.linkedin}" target="_blank"><i class="fab fa-linkedin"></i></a>` : ''}
-        </div>
-        <span>${speaker.niche || speaker.title || 'Speaker'}</span>
-        <div class="mt-2">
-          <a class="btn btn-sm btn-primary mt-2" href="speaker-details.html?id=${speaker.id}" style="margin-bottom: -25px; color: white">
-            Vote Now
-          </a>
-        </div>
-      </div>
-      <p style="margin-top: 35px; margin-bottom: -28px; font-weight: bold; color: green;id="speaker-${speaker.id}-votes"">Votes: ${votes}</p>
-    </div>
-  </div>
-`;
+          <div class="col-lg-4 col-md-6 col-sm-12 wow fadeInDown animated">
+            <div class="single-team text-center pt-50 pb-50 mb-30" style="border-radius: 30px; background: #fff; margin-bottom: 40px">
+              <div class="team-thumb" style="margin-top: -40px; display: flex; justify-content: center; align-items: center; background: transparent; border-radius: 20px 20px 0 0;">
+                <img 
+                  src="${imageUrl}" 
+                  alt="${speaker.name}"  class="imh"
+                  onclick="openSpeakerModal('${speaker.name}', '${speaker.role || ''}', '${speaker.description || ''}', '${imageUrl}')" 
+                  style="height: 100%; width: 100%; border-radius: 5%; border: 4px solid #e91e63; margin-top: -30px; margin-bottom: 45px"
+                />
+              </div>
+              <div class="team-info" style="margin-top: -60px">
+                <h5>${speaker.name}</h5>
+                <div class="team-social pt-15 pb-15 mb-15">
+                  ${speaker.instagram ? `<a href="${speaker.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>` : ''}
+                  ${speaker.youtube ? `<a href="${speaker.youtube}" target="_blank"><i class="fab fa-youtube"></i></a>` : ''}
+                  ${speaker.tiktok ? `<a href="${speaker.tiktok}" target="_blank"><i class="fab fa-tiktok"></i></a>` : ''}
+                  ${speaker.facebook ? `<a href="${speaker.facebook}" target="_blank"><i class="fab fa-facebook"></i></a>` : ''}
+                  ${speaker.linkedin ? `<a href="${speaker.linkedin}" target="_blank"><i class="fab fa-linkedin"></i></a>` : ''}
+                </div>
+                <span>${nicheText}</span>
+                <div class="mt-2">
+                  <a class="btn btn-sm btn-primary mt-2" href="speaker-details.html?id=${speaker.id}" style="margin-bottom: -25px; color: white">
+                    Vote Now
+                  </a>
+                </div>
+              </div>
+              <p style="margin-top: 35px; margin-bottom: -28px; font-weight: bold; color: green;" id="speaker-${speaker.id}-votes">Votes: ${votes}</p>
+            </div>
+          </div>
+        `;
 
         container.innerHTML += html;
       });
@@ -146,11 +151,10 @@
   });
 
   function openVoteModal(speakerId, speakerName) {
-  document.getElementById('voteSpeakerName').innerText = speakerName;
-  document.getElementById('voterSpeaker').value = speakerId; 
-  document.getElementById('voteModal').style.display = 'flex';
-}
-
+    document.getElementById('voteSpeakerName').innerText = speakerName;
+    document.getElementById('voterSpeaker').value = speakerId; 
+    document.getElementById('voteModal').style.display = 'flex';
+  }
 
   function closeVoteModal() {
     document.getElementById('voteModal').style.display = 'none';
@@ -166,36 +170,35 @@
   }
 
   function submitVote(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  const name = document.getElementById("voterName").value.trim();
-  const email = document.getElementById("voterEmail").value.trim();
-  const phone = document.getElementById("voterPhone").value.trim();
-  const speaker_id = document.getElementById("voterSpeaker").value.trim();
+    const name = document.getElementById("voterName").value.trim();
+    const email = document.getElementById("voterEmail").value.trim();
+    const phone = document.getElementById("voterPhone").value.trim();
+    const speaker_id = document.getElementById("voterSpeaker").value.trim();
 
-  fetch('/api/vote', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name, email, phone, speaker_id })
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert(data.message); // temporary
-    // ✅ Refresh votes after voting
-    fetch('/api/vote-results')
-      .then(res => res.json())
-      .then(voteResults => {
-        voteResults.forEach(v => {
-  const voteEl = document.querySelector(`#speaker-${v.id}-votes`);
-  if (voteEl) voteEl.innerText = `Votes: ${v.votes}`; // ✔ correct key
-});
-
-      });
-  })
-  .catch(err => console.error(err));
-}
-
+    fetch('/api/vote', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, phone, speaker_id })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message); // temporary
+      // ✅ Refresh votes after voting
+      fetch('/api/vote-results')
+        .then(res => res.json())
+        .then(voteResults => {
+          voteResults.forEach(v => {
+            const voteEl = document.querySelector(`#speaker-${v.id}-votes`);
+            if (voteEl) voteEl.innerText = `Votes: ${v.votes}`;
+          });
+        });
+    })
+    .catch(err => console.error(err));
+  }
 </script>
+
   <body>
     <style>
       .imh{
