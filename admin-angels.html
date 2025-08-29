@@ -17,10 +17,17 @@
     .btn-danger { font-size: 0.85rem; }
     #loading-spinner { display: none; text-align: center; margin-bottom: 20px; }
     #loading-spinner .spinner-border { width: 2.5rem; height: 2.5rem; }
+    #searchInput {
+  margin-bottom: 15px;
+}
+
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="mb-3">
+  <input type="text" id="searchInput" class="form-control" placeholder="Search angels...">
+</div>
     <div class="table-container">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>All Angel Submissions</h2>
@@ -96,6 +103,25 @@
   <script>
     const tableBody = document.getElementById('angel-table-body');
     const spinner = document.getElementById('loading-spinner');
+    const searchInput = document.getElementById('searchInput');
+
+searchInput.addEventListener('input', function() {
+  const filter = this.value.toLowerCase();
+  const rows = tableBody.getElementsByTagName('tr');
+
+  for (let i = 0; i < rows.length; i++) {
+    const cells = rows[i].getElementsByTagName('td');
+    let match = false;
+    for (let j = 1; j < cells.length - 1; j++) { // skip first (#) and last (actions) columns
+      if (cells[j].textContent.toLowerCase().includes(filter)) {
+        match = true;
+        break;
+      }
+    }
+    rows[i].style.display = match ? '' : 'none';
+  }
+});
+
     let currentEditModal;
 
     async function fetchAngels() {
@@ -104,7 +130,7 @@
         tableBody.innerHTML = '';
         await new Promise(r => setTimeout(r, 500));
 
-        const res = await fetch('https://dubaicreatorsummit.com/api/admin/angels', {
+        const res = await fetch('http://localhost:3000/api/admin/angels', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
         });
 
@@ -143,7 +169,7 @@
 
     function deleteAngel(id) {
       if (!confirm("Are you sure you want to delete this submission?")) return;
-      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
+      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -156,7 +182,7 @@
     }
 
     function editAngel(id) {
-      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
+      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
       })
       .then(res => res.json())
@@ -194,7 +220,7 @@
         description: document.getElementById('edit-description').value
       };
 
-      fetch(`https://dubaicreatorsummit.com/api/admin/angels/${id}`, {
+      fetch(`http://localhost:3000/api/admin/angels/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
