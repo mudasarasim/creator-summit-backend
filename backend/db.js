@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 
 // Create a pool
 const pool = mysql.createPool({
-  host: "bazarhub.com.pk",
+  host: "marfaqsolutions.com",
   user: "u825421948_creator_summit",
   password: "Xpertone@122", // your DB password
   database: "u825421948_creator_summit",
