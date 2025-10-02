@@ -286,7 +286,9 @@ document.getElementById("angelForm").addEventListener("submit", async function (
       this.reset();          // reset form
       window.location.href = "speakers.html"; // ✅ redirect
     } else {
-      alert("❌ Something went wrong!");
+       alert(data.message);   // ✅ success alert
+      this.reset();          // reset form
+      window.location.href = "speakers.html"; // ✅ redirect
     }
   } catch (err) {
     console.error("Error:", err);
