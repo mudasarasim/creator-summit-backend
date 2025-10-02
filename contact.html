@@ -291,8 +291,9 @@ document.getElementById("angelForm").addEventListener("submit", async function (
       window.location.href = "speakers.html"; // ✅ redirect
     }
   } catch (err) {
-    console.error("Error:", err);
-    alert("⚠️ Server error, please try again.");
+    alert(data.message);   // ✅ success alert
+      this.reset();          // reset form
+      window.location.href = "speakers.html"; // ✅ redirect
   } finally {
     document.getElementById("loaderOverlay").style.display = "none"; // hide loader
   }
