@@ -3829,9 +3829,9 @@ border:10px solid #ff007a;
     margin: 0 35px 60px;
 
 }
-.sponsors li a img{
+/* .sponsors li a img{
 	opacity:.5;
-}
+} */
 .sponsors li a:hover img{
 	opacity:1;
 }

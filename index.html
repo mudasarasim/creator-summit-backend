@@ -220,7 +220,7 @@
                       DUBAI CREATORS SUMMIT 2025
                     </h2>
                     <h4 class="dubai-creator-subtitle">
-                      "Where Creators Meet <span id="flipping-text"></span>"
+                      "Where brands, creators, and customers unite"
                     </h4>
                     <!-- <ul data-animation="fadeInUp animated" data-delay=".2s">
                       <li><i class="fas fa-map-marker-alt"></i> Waterfront Hotel, London</li>
@@ -234,6 +234,136 @@
           </div>
         </div>
       </section>
+      
+      <section class="about-summit">
+        <div class="container">
+          <div class="summit-row">
+            <!-- Image Side -->
+            <div class="summit-image fade-left">
+              <img src="img/image4.avif" alt="Dubai Creator Summit 2025" />
+            </div>
+          
+            <!-- Text Side -->
+            <div class="summit-content fade-up">
+              <h2>About Dubai Creator Summit 2025</h2>
+              <p>
+                Dubai Creator Summit 2025 is more than just networking—it’s a dynamic hub
+                where connections spark real collaborations. By bringing together brands,
+                founders, creators, influencers, and customers, the summit creates a
+                multi-dimensional ecosystem where ideas transform into opportunities.
+                Participants gain visibility, forge meaningful partnerships, and drive
+                growth—financial, reputational, and collaborative. Whether you’re
+                launching a new business or running a startup, this summit is the perfect
+                platform to connect, collaborate, and thrive.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <style>
+      /* --- Layout --- */
+      .about-summit {
+        background: #f9f9f9;
+        padding: 100px 15px;
+        overflow: hidden;
+      }
+      
+      .summit-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+      
+      /* --- Image --- */
+      .summit-image img {
+        width: 100%;
+        max-width: 480px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        object-fit: cover;
+      }
+      
+      /* --- Text --- */
+      .summit-content {
+        flex: 1;
+        text-align: left;
+        max-width: 600px;
+      }
+      
+      .summit-content h2 {
+        font-size: 36px;
+        font-weight: 700;
+        color: #002b5c;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+      
+      .summit-content p {
+        font-size: 18px;
+        color: #444;
+        line-height: 1.8;
+        text-align: justify;
+      }
+      
+      /* --- Animations --- */
+      .fade-up,
+      .fade-left {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 1s ease;
+      }
+      
+      .fade-left {
+        transform: translateX(-60px);
+      }
+      
+      .show {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+      
+      /* --- Responsive --- */
+      @media (max-width: 991px) {
+        .summit-row {
+          flex-direction: column;
+          text-align: center;
+        }
+      
+        .summit-content {
+          text-align: center;
+        }
+      
+        .summit-content h2 {
+          font-size: 30px;
+        }
+      
+        .summit-content p {
+          font-size: 16px;
+        }
+      }
+      </style>
+      
+      <script>
+        // Fade-in animation when elements enter the viewport
+        document.addEventListener("DOMContentLoaded", () => {
+          const elements = document.querySelectorAll(".fade-up, .fade-left");
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("show");
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+          
+          elements.forEach((el) => observer.observe(el));
+        });
+      </script>
 
       <!-- about-area -->
       <section id="about" class="about-area about-p pt-120 pb-120 p-relative">
@@ -313,8 +443,7 @@
                     data-animation="fadeInUp animated"
                     data-delay=".5s"
                   >
-                    <span></span>From Clicks to Clients: Where Creators Close
-                    Deals
+                    <span></span>Deeper Meanings and Implications
                   </h5>
                 </div>
                 <div
@@ -322,20 +451,61 @@
                   data-animation="fadeInUp animated"
                   data-delay=".2s"
                 >
+                  <h6>
+                    1. Connections → Collaborations:
+                  </h6>
                   <p>
-                    The Dubai Creator Summit 2025 is not just an event — it’s a global platform where creators, influencers, brands, and innovators come together to connect, collaborate, and inspire.
+                    ○ This emphasizes that the summit isn’t just about meeting people—it’s about creating actionable partnerships. Attendees don’t just network; they find opportunities to work together.
                   </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ Implies real business outcomes, not just socializing.
+                  </p>
+                  <h6>
+                    2. Inclusivity of Stakeholders:
+                  </h6>
                   <p>
-                    Set in the heart of Dubai, this summit celebrates the power of creativity and the future of digital storytelling.
+                    ○ Listing brands, founders, creators, influencers, and customers shows that this is a multi-dimensional ecosystem.
                   </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ It highlights that all sides of the creator economy are represented: product makers, promoters, and the audience.
+                  </p>
+                  <h6>
+                    3. Visibility:
+                  </h6>
                   <p>
-                    For creators, it is a chance to showcase talent, participate in live content challenges, and gain recognition through prestigious awards. For brands and businesses, it offers direct access to top-performing creators and the opportunity to form authentic collaborations that drive real impact.
+                    ○ Suggests that participants will get exposure, whether through social media, press, or direct audience engagement.
                   </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ Visibility isn’t limited to one group; everyone benefits—from creators to brands.
+                  </p>
+                  <h6>
+                    4. Growth:
+                  </h6>
                   <p>
-                    More than a summit, this is a hub of opportunities — where creativity meets
-                    commerce, ideas turn into partnerships, and voices are amplified on a global
-                    stage.
+                    ○ Beyond exposure, it implies tangible growth—business, personal brand, audience, or partnerships.
                   </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ Growth here can be financial, reputational, or collaborative.
+                  </p>
+                  <h6>
+                    5. Summit as a Catalyst:
+                  </h6>
+                  <p>
+                    ○ The sentence positions the event as the hub or launchpad for meaningful opportunities.
+                  </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ The wording suggests action and results rather than just passive attendance.
+                  </p>
+                  <h6>
+                    6. Energy & Momentum:
+                  </h6>
+                  <p>
+                    ○ Words like turn into and all in one place give the sense of dynamic energy—something happens when all these people converge.
+                  </p>
+                  <p style="margin-top: -10px !important;">
+                    ○ It conveys that the event is a place where ideas and connections naturally evolve into something bigger.
+                  </p>  
+        
                   <a href="https://wa.me/971545832317" target="_blank" rel="noreferrer" class="btn mt-20"
                     ><i class="fas fa-ticket-alt"></i> Buy Ticket</a
                   >
@@ -440,8 +610,9 @@
                   class="wow fadeInUp animated"
                   data-animation="fadeInUp animated"
                   data-delay=".2s"
+                  style="letter-spacing: 1px;"
                 >
-                  Where Creativity Turns Into Commerce
+                  VISION
                 </h5>
               </div>
               <ul
@@ -452,18 +623,30 @@
                 <li>
                   <img src="img/calendar.png" alt="img" />
                   <span>
-                    Join a first-of-its-kind experience in Dubai — where content meets capital and collaborations become reality.
+                    To be the leading global platform where creators, entrepreneurs, and brands unite to shape the future of digital innovation, collaboration, and business growth.
                   </span>
                 </li>
+                <div class="about-title second-atitle">
+                <!-- <span class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Why Join Ovent</span>
+                                    <h2 class="wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s">Join us at 110th oVent Expo.</h2> -->
+                <h5
+                  class="wow fadeInUp animated"
+                  data-animation="fadeInUp animated"
+                  data-delay=".2s"
+                  style="letter-spacing: 1px;"
+                >
+                  MISSION
+                </h5>
+              </div>
                 <li>
                   <img src="img/comments.png" alt="img" />
                   <span>
-                    The Dubai Creator Summit 2025 is more than just networking. It is a live business arena where creators, brands, and sponsors come together to collaborate, pitch, and form partnerships that truly deliver results.
+                    To empower creators, startups, and brands by providing a space to connect, collaborate, and gain visibility—transforming ideas into impactful opportunities. Dubai Creator Summit 2025 aims to bridge the gap between creativity and commerce, fostering partnerships that drive innovation, elevate influence, and support business success across the creator economy.
                   </span>
-                  <img src="img/comments.png" alt="img" class="mt-20" />
+                  <!-- <img src="img/comments.png" alt="img" class="mt-20" />
                   <span class="mt-20">
                     Whether you’re a rising influencer looking to grow or a brand seeking authentic connections, this summit transforms creative energy into measurable commercial success — all in one power-packed day of opportunities, insights, and recognition.
-                  </span>
+                  </span> -->
                 </li>
               </ul>
             </div>
@@ -1209,8 +1392,8 @@
 
       <!-- pricing-area-end -->
       <!-- Sponsors-area -->
-      <!-- <section class="sponsors services-bg pt-113 fix"> -->
-        <!-- <div class="container">
+      <section class="sponsors services-bg pt-113 fix">
+        <div class="container">
           <div
             class="section-t team-t paroller"
             data-paroller-factor="0.15"
@@ -1220,23 +1403,23 @@
             data-paroller-type="foreground"
             data-paroller-direction="horizontal"
           >
-            <h2>Sponsors</h2>
+            <h2>Partners</h2>
           </div>
           <div class="row justify-content-center">
             <div class="col-xl-8 col-lg-8">
               <div class="section-title mb-80">
-                <span
+                <!-- <span
                   class="wow fadeInUp animated"
                   data-animation="fadeInUp animated"
                   data-delay=".2s"
                   >Sponsors</span
-                >
+                > -->
                 <h2
                   class="wow fadeInUp animated"
                   data-animation="fadeInUp animated"
                   data-delay=".2s"
                 >
-                  Strategic Partners
+                  Our Partners
                 </h2>
               </div>
             </div>
@@ -1253,40 +1436,78 @@
           <div class="row">
             <div class="col-lg-12 col-md-12 text-center">
               <ul
-                class="wow fadeInDown animated"
+                class="wow fadeInDown animated sponsor-list"
                 data-animation="fadeInDown animated"
                 data-delay=".2s"
               >
+                <!-- Sponsor 1 -->
                 <li>
-                  <a href="#"><img src="img/sponsors_1.png" alt="img" /></a>
+                  <a href="#">
+                    <img src="img/sponsors_1.png" alt="Official Media Partner" />
+                  </a>
+                  <h4>Official Media Partner</h4>
+                </li>
+              
+                <!-- Sponsor 2 -->
+                <li>
+                  <a href="#"><img src="img/sponsors_2.png" alt="Sponsor 2" /></a>
+                  <h4>Al Films Partner</h4>
+                </li>
+              
+                <!-- Add more sponsors -->
+                <li>
+                  <a href="#"><img src="img/sponsors_3.png" alt="Sponsor 3" /></a>
+                  <h4>Strategic Partner</h4>
                 </li>
                 <li>
-                  <a href="#"><img src="img/sponsors_2.png" alt="img" /></a>
+                  <a href="#"><img src="img/sponsors_4.jpeg" alt="Sponsor 4" /></a>
+                  <h4>Strategic Partner</h4>
                 </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_3.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_4.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_5.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_6.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_7.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_8.png" alt="img" /></a>
-                </li>
-                <li>
-                  <a href="#"><img src="img/sponsors_9.png" alt="img" /></a>
-                </li>
+                <!-- <li><a href="#"><img src="img/sponsors_5.png" alt="Sponsor 5" /></a></li>
+                <li><a href="#"><img src="img/sponsors_6.png" alt="Sponsor 6" /></a></li>
+                <li><a href="#"><img src="img/sponsors_7.png" alt="Sponsor 7" /></a></li>
+                <li><a href="#"><img src="img/sponsors_8.png" alt="Sponsor 8" /></a></li>
+                <li><a href="#"><img src="img/sponsors_9.png" alt="Sponsor 9" /></a></li> -->
               </ul>
             </div>
-          </div> -->
+          </div>
+
+          <style>
+            .sponsor-list {
+              list-style: none;
+              padding: 0;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              gap: 40px;
+            }
+          
+            .sponsor-list li {
+              text-align: center;
+              flex: 0 1 250px;
+            }
+          
+            .sponsor-list img {
+              max-width: 100%;
+              height: 160px; 
+              object-fit: contain;
+              filter: grayscale(0%);
+              transition: all 0.3s ease;
+            }
+          
+            .sponsor-list img:hover {
+              filter: grayscale(0);
+              transform: scale(1.05);
+            }
+          
+            .sponsor-list h4 {
+              margin-top: 10px;
+              color: #c89b75;
+              font-weight: 600;
+              font-size: 20px;
+            }
+          </style>
+
           <!-- <div class="row">
                         <div class="col-12">
                             <div class="s-video-wrap wow fadeInUp animated" data-animation="fadeInUp animated" data-delay=".2s" style="background-image:url(img/video_bg.png)">
@@ -1298,8 +1519,8 @@
                             </div>
                         </div>
                     </div> -->
-        <!-- </div>
-      </section> -->
+        </div>
+      </section>
       <!-- Sponsors-area-end -->
 
       <!-- blog-area -->
