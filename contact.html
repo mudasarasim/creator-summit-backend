@@ -28,87 +28,80 @@
 </head>
 
 <body>
-    <!-- header -->
-   <header
-      id="home"
-      class="header-area fixed-top"
-      style="background-color: white; z-index: 999"
-    >
-      <div id="navbar" class="menu-area" style="background-color: white">
-        <div class="container">
-          <div class="second-menu">
-            <div class="row align-items-center">
-              <!-- Logo -->
-              <div class="col-xl-3 col-lg-3">
-                <div class="logo">
-                  <a href="index.html">
-                     <img
-                      src="img/logo.png"
-                      alt="logo"
-                 
-                  />
-                  </a>
-                </div>
+  <!-- header -->
+  <header id="home" class="header-area fixed-top" style="background-color: white; z-index: 999">
+    <div id="navbar" class="menu-area" style="background-color: white">
+      <div class="container">
+        <div class="second-menu">
+          <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-3 col-lg-3">
+              <div class="logo">
+                <a href="index.html">
+                  <img src="img/logo.png" alt="logo" />
+                </a>
               </div>
-            
-              <!-- Navigation -->
-              <div class="col-xl-6 col-lg-9">
-                <div class="responsive">
-                  <i class="icon dripicons-align-right"></i>
-                </div>
-                <div class="main-menu text-right text-xl-center">
-                  <nav id="mobile-menu">
-                    <ul>
-                      <li class="has-sub">
-                        <a href="index.html" class="menu-link">Home</a>
-                      </li>
-                      <li class="has-sub">
-                        <a href="speakers.html" class="menu-link">Angels</a>
-                      </li>
-                      <li class="has-sub">
-                        <a href="schedule.html" class="menu-link">Schedule</a>
-                      </li>
-                      <li class="has-sub">
-                        <a href="contact.html" class="menu-link">Be Our Angel</a>
-                      </li>
-                    
-                      <!-- Mobile Menu Buttons (hidden on desktop) -->
-                      <li class="has-sub d-xl-none">
-                        <a href="exhibit.html" class="menu-link">
-                          <i class="fas fa-handshake"></i> Sponsors and Partners
-                        </a>
-                      </li>
-                      <li class="has-sub d-xl-none">
-                        <a href="https://buy.stripe.com/7sY3cx2KV3ia18490UaAw00" target="_blank" rel="noreferrer" class="btn">
-                          <i class="fas fa-ticket-alt"></i> Buy Ticket
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="col-xl-6 col-lg-9">
+              <div class="responsive">
+                <i class="icon dripicons-align-right"></i>
               </div>
-            
-              <!-- Desktop Buttons -->
-              <div class="col-xl-3 text-right d-none d-xl-block">
-                <div class="header-btn second-header-btn d-flex justify-content-end align-items-center">
-                  <a href="exhibit.html" class="btn me-2" style="margin-right: 15px;">
-                    <i class="fas fa-handshake"></i> Sponsors and Partners
-                  </a>
-                  <a href="https://buy.stripe.com/7sY3cx2KV3ia18490UaAw00" target="_blank" rel="noreferrer" class="btn">
-                    <i class="fas fa-ticket-alt"></i> Buy Ticket
-                  </a>
-                </div>
+              <div class="main-menu text-right text-xl-center">
+                <nav id="mobile-menu">
+                  <ul>
+                    <li class="has-sub">
+                      <a href="index.html" class="menu-link">Home</a>
+                    </li>
+                    <li class="has-sub">
+                      <a href="speakers.html" class="menu-link">Angels</a>
+                    </li>
+                    <li class="has-sub">
+                      <a href="schedule.html" class="menu-link">Schedule</a>
+                    </li>
+                    <li class="has-sub">
+                      <a href="contact.html" class="menu-link">Be Our Angel</a>
+                    </li>
+
+                    <!-- Mobile Menu Buttons (hidden on desktop) -->
+                    <li class="has-sub d-xl-none">
+                      <a href="exhibit.html" class="menu-link">
+                        <i class="fas fa-handshake"></i> Sponsors and Partners
+                      </a>
+                    </li>
+                    <li class="has-sub d-xl-none">
+                      <a href="https://buy.stripe.com/7sY3cx2KV3ia18490UaAw00" target="_blank" rel="noreferrer"
+                        class="btn">
+                        <i class="fas fa-ticket-alt"></i> Buy Ticket
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+            <!-- Desktop Buttons -->
+            <div class="col-xl-3 text-right d-none d-xl-block">
+              <div class="header-btn second-header-btn d-flex justify-content-end align-items-center">
+                <a href="exhibit.html" class="btn me-2" style="margin-right: 15px;">
+                  <i class="fas fa-handshake"></i> Sponsors and Partners
+                </a>
+                <a href="https://buy.stripe.com/7sY3cx2KV3ia18490UaAw00" target="_blank" rel="noreferrer" class="btn">
+                  <i class="fas fa-ticket-alt"></i> Buy Ticket
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </header>
-    <!-- header-end -->
+    </div>
+  </header>
+  <!-- header-end -->
   <!-- main-area -->
   <main>
     <!-- breadcrumb-area -->
-   <section>
+    <section>
       <div class="breadcrumb-section"
         style="position: relative; background-image: url('img/beourangel.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 50vh; display: flex; align-items: center; justify-content: center;">
 
@@ -156,195 +149,210 @@
         <div class="row">
           <div class="col-xl-12">
             <div class="contact-wrapper">
-              <form id="angelForm" action="https://dubaicreatorsummit.com/submit-angel" method="POST" enctype="multipart/form-data">
+          <form id="angelForm" action="http://localhost:3000/submit-angel" method="POST"
+  enctype="multipart/form-data">
 
-                <div class="row">
-                  <!-- Name -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-name c-icon">
-                      <i class="fas fa-user"></i>
-                      <input id="name" name="name" placeholder="Your name :" type="text" required />
-                    </div>
-                  </div>
+  <div class="row">
+    <!-- Name -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-name c-icon">
+        <i class="fas fa-user"></i>
+        <input id="name" name="name" placeholder="Your name :" type="text" required />
+      </div>
+    </div>
 
-                  <!-- Email -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-email c-icon">
-                      <i class="fas fa-envelope"></i>
-                      <input id="email" name="email" placeholder="info@example.com :" type="email"  autocapitalize="none" style="text-transform:none;" required />
-                    </div>
-                  </div>
+    <!-- Email -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-email c-icon">
+        <i class="fas fa-envelope"></i>
+        <input id="email" name="email" placeholder="info@example.com :" type="email" autocapitalize="none"
+          style="text-transform:none;" required />
+      </div>
+    </div>
 
-                  <!-- Phone -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fas fa-phone"></i>
-                      <input id="phone" name="phone" placeholder="your phone number :" type="text" required />
-                    </div>
-                  </div>
+    <!-- Phone -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fas fa-phone"></i>
+        <input id="phone" name="phone" placeholder="your phone number :" type="text" required />
+      </div>
+    </div>
 
-                  <!-- Instagram -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fab fa-instagram"></i>
-                      <input id="instagram" name="instagram" placeholder="Instagram Profile URL" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- Instagram -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fab fa-instagram"></i>
+        <input id="instagram" name="instagram" placeholder="Instagram Profile URL" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- TikTok -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fa-brands fa-tiktok"></i>
-                      <input id="tiktok" name="tiktok" placeholder="TikTok Profile URL" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- TikTok -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fa-brands fa-tiktok"></i>
+        <input id="tiktok" name="tiktok" placeholder="TikTok Profile URL" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- YouTube -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fab fa-youtube"></i>
-                      <input id="youtube" name="youtube" placeholder="YouTube Channel URL" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- YouTube -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fab fa-youtube"></i>
+        <input id="youtube" name="youtube" placeholder="YouTube Channel URL" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- Facebook -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fab fa-facebook"></i>
-                      <input id="facebook" name="facebook" placeholder="Facebook Profile URL" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- Facebook -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fab fa-facebook"></i>
+        <input id="facebook" name="facebook" placeholder="Facebook Profile URL" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- LinkedIn -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fab fa-linkedin"></i>
-                      <input id="linkedin" name="linkedin" placeholder="LinkedIn Profile URL" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- LinkedIn -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fab fa-linkedin"></i>
+        <input id="linkedin" name="linkedin" placeholder="LinkedIn Profile URL" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- Image Upload -->
-                  <div class="col-lg-6 mb-30">
-                    <label class="upload-label">Upload Your Image:</label>
-                    <div class="custom-file-input-wrapper">
-                      <input type="file" name="youtube_image" accept="image/*" class="custom-file-input" id="imageUpload" required />
-                      <span class="custom-file-text">Choose Image</span>
-                    </div>
-                  
-                    <!-- Success message placeholder -->
-                    <p id="uploadMsg" style="color: green; font-weight: 500; margin-top: 8px; display: none;">
-                      ✅ Image uploaded successfully!
-                    </p>
-                  </div>
-<!-- Loader Overlay -->
-<div id="loaderOverlay" style="
-  display:none;
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(255,255,255,0.8);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-">
-  <div class="spinner" style="
-    border: 6px solid #f3f3f3;
-    border-top: 6px solid #3498db;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-  "></div>
-</div>
+    <!-- Image Upload -->
+    <div class="col-lg-6 mb-30">
+      <label class="upload-label">Upload Your Image:</label>
+      <div class="custom-file-input-wrapper">
+        <input type="file" name="youtube_image" accept="image/*" class="custom-file-input"
+          id="imageUpload" required />
+        <span class="custom-file-text">Choose Image</span>
+      </div>
 
-<style>
-@keyframes spin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
+      <!-- Success message placeholder -->
+      <p id="uploadMsg" style="color: green; font-weight: 500; margin-top: 8px; display: none;">
+        ✅ Image uploaded successfully!
+      </p>
+    </div>
 
-<script>
-document.getElementById("angelForm").addEventListener("submit", async function (e) {
-  e.preventDefault(); // stop normal submit
-  document.getElementById("loaderOverlay").style.display = "flex"; // show loader
+    <!-- Loader Overlay -->
+    <div id="loaderOverlay" style="
+      display:none;
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: rgba(255,255,255,0.8);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;">
+      <div class="spinner" style="
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+      "></div>
+    </div>
 
-  const formData = new FormData(this);
+    <style>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
 
-  try {
-    let res = await fetch("https://dubaicreatorsummit.com/submit-angel", {
-      method: "POST",
-      body: formData
-    });
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
 
-    let data = await res.json();
+    <script>
+  document.getElementById("angelForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    document.getElementById("loaderOverlay").style.display = "flex";
 
-    if (data.success) {
-      alert('✅ Your Data Successfully Submitted. Thanks for registration!');   // ✅ success alert
-      this.reset();          // reset form
-      window.location.href = "speakers.html"; // ✅ redirect
-    } else {
-       alert('✅ Your Data Successfully Submitted. Thanks for registration!');   // ✅ success alert
-      this.reset();          // reset form
-      window.location.href = "speakers.html"; // ✅ redirect
+    const formData = new FormData(this);
+
+    try {
+      // Use the correct endpoint for your setup
+      let res = await fetch("http://localhost:3000/submit-angel", {
+        method: "POST",
+        body: formData
+      });
+
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      let data = await res.json();
+
+      if (data.success) {
+        alert('✅ Your data was successfully submitted. Thank you for registering!');
+        this.reset();
+        window.location.href = "speakers.html";
+      } else {
+        alert('❌ Submission failed. Server returned an error.');
+      }
+    } catch (err) {
+      console.error("Submission Error:", err);
+      alert(`⚠️ An error occurred: ${err.message}`);
+    } finally {
+      document.getElementById("loaderOverlay").style.display = "none";
     }
-  } catch (err) {
-    alert('✅ Your Data Successfully Submitted. Thanks for registration!');   // ✅ success alert
-      this.reset();          // reset form
-      window.location.href = "speakers.html"; // ✅ redirect
-  } finally {
-    document.getElementById("loaderOverlay").style.display = "none"; // hide loader
-  }
-});
+  });
 </script>
 
 
-                  <script>
-                    document.getElementById("imageUpload").addEventListener("change", function () {
-                      if (this.files && this.files.length > 0) {
-                        document.getElementById("uploadMsg").style.display = "block";
-                      } else {
-                        document.getElementById("uploadMsg").style.display = "none";
-                      }
-                    });
-                  </script>
+    <script>
+      document.getElementById("imageUpload").addEventListener("change", function () {
+        if (this.files && this.files.length > 0) {
+          document.getElementById("uploadMsg").style.display = "block";
+        } else {
+          document.getElementById("uploadMsg").style.display = "none";
+        }
+      });
+    </script>
 
-                  <!-- Followers -->
-                  <div class="col-lg-6 mb-30" style="margin-top: 34px">
-                    <div class="contact-phone c-icon">
-                      <i class="fas fa-users"></i>
-                      <input id="followers" name="followers" placeholder="Total followers (e.g. 15000)" type="number" min="1"
-                        required />
-                    </div>
-                  </div>
+    <!-- Followers -->
+    <div class="col-lg-6 mb-30" style="margin-top: 34px">
+      <div class="contact-phone c-icon">
+        <i class="fas fa-users"></i>
+        <input id="followers" name="followers" placeholder="Total followers (e.g. 15000)" type="number"
+          min="1" required />
+      </div>
+    </div>
 
-                  <!-- Niche Area Dropdown -->
-                  <div class="col-lg-6 mb-30">
-                    <div class="contact-phone c-icon">
-                      <i class="fas fa-tags"></i>
-                      <input id="niche" name="niche" placeholder="Type your niche (e.g. Fitness/Lifestyle)" type="text" autocapitalize="none" style="text-transform:none;" />
-                    </div>
-                  </div>
+    <!-- Niche Area -->
+    <div class="col-lg-6 mb-30">
+      <div class="contact-phone c-icon">
+        <i class="fas fa-tags"></i>
+        <input id="niche" name="niche" placeholder="Type your niche (e.g. Fitness/Lifestyle)" type="text"
+          autocapitalize="none" style="text-transform:none;" />
+      </div>
+    </div>
 
-                  <!-- Description -->
-                  <div class="col-lg-12 mb-30">
-                    <div class="contact-message c-icon">
-                      <i class="fas fa-pencil-alt"></i>
-                      <textarea id="description" name="description" cols="30" rows="6"
-                        placeholder="Your description :" autocapitalize="none" style="text-transform:none;" ></textarea>
-                    </div>
-                  </div>
+    <!-- Description -->
+    <div class="col-lg-12 mb-30">
+      <div class="contact-message c-icon">
+        <i class="fas fa-pencil-alt"></i>
+        <textarea id="description" name="description" cols="30" rows="6" placeholder="Your description :"
+          autocapitalize="none" style="text-transform:none;"></textarea>
+      </div>
+    </div>
 
-                  <!-- Submit -->
-                  <div class="col-lg-12">
-                    <div class="contact-butoon text-center mt-20">
-                      <button class="btn" type="submit">Be Our Angel</button>
-                    </div>
-                  </div>
-                </div>
-              </form>
+    <!-- Submit -->
+    <div class="col-lg-12">
+      <div class="contact-butoon text-center mt-20">
+        <button class="btn" type="submit">Be Our Angel</button>
+      </div>
+    </div>
+  </div>
+</form>
+
             </div>
           </div>
         </div>
@@ -434,57 +442,59 @@ document.getElementById("angelForm").addEventListener("submit", async function (
     </div> -->
     <!-- contact-area-end -->
   </main>
-  
+
   <!-- main-area-end -->
   <!-- footer -->
-  <footer
-      class="footer-bg footer-p"
-      style="
+  <footer class="footer-bg footer-p" style="
         background-image: url(img/footer_bg_img.jpg);
         background-size: cover;
-      "
-    >
-      <div class="footer-top">
-        <div class="container">
-          <div class="row justify-content-between">
-            <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
-              <div class="footer-widget pt-120 mb-30">
+      ">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-xl-12 col-lg-12 col-sm-12 text-center">
+            <div class="footer-widget pt-120 mb-30">
 
-                <!-- About Section -->
-                <div class="footer-text mb-20">
-                  <p>
-                    XpertoneOne Creative brings creators, brands, and innovators together to inspire, connect, and create. We’re proud to host the Dubai Creator Summit 2025, where talent meets opportunity and ideas turn into impact. Join us and be part of the future of creativity!
-                  </p>
-                </div>
-              
-                <!-- Social Icons -->
-                <div class="footer-social mb-30">
-                  <a href="https://www.facebook.com/share/1BzviXQyWM/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                  <a href="https://www.instagram.com/dubai_creator_summit?igsh=eHZqZjV4dGJvMWdv&utm_source=qr" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                  <a href="https://www.tiktok.com/@creator_summit?_t=ZS-8zioXD1RFCM&_r=1" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-                </div>
-              
-                <!-- Contact Us Section -->
-                <div class="footer-contact">
-                  <h5 style="color: white;">Contact Us</h5>
-                  <p>
-                    <i class="fa fa-envelope"></i>
-                    <a href="mailto:info@dubaicreatorsummit.com" style="color: white; margin-right: 15px;">
-                      info@dubaicreatorsummit.com
-                    </a><br>
-                    <i class="fab fa-whatsapp"></i>
-<a href="https://wa.me/971545832317" target="_blank" style="color: white;">
-  +971 54 583 2317
-</a>
+              <!-- About Section -->
+              <div class="footer-text mb-20">
+                <p>
+                  XpertoneOne Creative brings creators, brands, and innovators together to inspire, connect, and create.
+                  We’re proud to host the Dubai Creator Summit 2025, where talent meets opportunity and ideas turn into
+                  impact. Join us and be part of the future of creativity!
+                </p>
+              </div>
 
-                  </p>
-                </div>
+              <!-- Social Icons -->
+              <div class="footer-social mb-30">
+                <a href="https://www.facebook.com/share/1BzviXQyWM/?mibextid=wwXIfr" target="_blank"
+                  rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/dubai_creator_summit?igsh=eHZqZjV4dGJvMWdv&utm_source=qr"
+                  target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@creator_summit?_t=ZS-8zioXD1RFCM&_r=1" target="_blank"
+                  rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+              </div>
+
+              <!-- Contact Us Section -->
+              <div class="footer-contact">
+                <h5 style="color: white;">Contact Us</h5>
+                <p>
+                  <i class="fa fa-envelope"></i>
+                  <a href="mailto:info@dubaicreatorsummit.com" style="color: white; margin-right: 15px;">
+                    info@dubaicreatorsummit.com
+                  </a><br>
+                  <i class="fab fa-whatsapp"></i>
+                  <a href="https://wa.me/971545832317" target="_blank" style="color: white;">
+                    +971 54 583 2317
+                  </a>
+
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
   <!-- footer-end -->
 
   <!-- JS here -->
@@ -506,15 +516,15 @@ document.getElementById("angelForm").addEventListener("submit", async function (
 
   <!-- Form Input Area -->
   <script>
-  document.querySelectorAll(".c-icon").forEach(function(wrapper) {
-    wrapper.addEventListener("click", function(e) {
-      const input = wrapper.querySelector("input, textarea");
-      if (input) {
-        input.focus();
-      }
+    document.querySelectorAll(".c-icon").forEach(function (wrapper) {
+      wrapper.addEventListener("click", function (e) {
+        const input = wrapper.querySelector("input, textarea");
+        if (input) {
+          input.focus();
+        }
+      });
     });
-  });
-</script>
+  </script>
 
   <script src="js/vendor/modernizr-3.5.0.min.js"></script>
   <script src="js/vendor/jquery-1.12.4.min.js"></script>
