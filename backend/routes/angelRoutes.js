@@ -7,14 +7,20 @@ const path = require('path');
 // Configure multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads'); // Make sure this folder exists
+    cb(null, 'public/uploads');
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     cb(null, uniqueSuffix + path.extname(file.originalname));
   }
 });
-const upload = multer({ storage: storage });
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 50 * 1024 * 1024 // ✅ Allow up to 50MB uploads
+  }
+});
 
 // ✅ POST: Submit Angel (no email sending)
 router.post('/submit-angel', upload.single('youtube_image'), async (req, res) => {
